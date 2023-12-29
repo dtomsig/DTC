@@ -1,0 +1,276 @@
+/*  ===== MOBILE styles (reside at the top and are inherited by all devices) ===== */
+/*  ===== See tablet, desktop, and print @media queries at the bottom. */
+
+
+/*   ----- Imports  -----  */
+          /* Add fonts from the app's server 
+@font-face {                
+  font-family: 'FontName';
+  src: url('FontName.woff2') format('woff2');
+} 
+          */                           
+
+          /* ...or hosted services like Google Fonts 
+@import url(//fonts.googleapis.com/css?family=Font+Name);
+          */
+
+@import '../node_modules/modern-normalize/modern-normalize.css';
+          /* npm install modern-normalize 
+            Resets elements for browser consistancy.  
+            http://nicolasgallagher.com/about-normalize-css/ 
+          */
+
+          /* Component-specific stylesheets, if any 
+@import "component1.css";   
+          */
+
+/*   ----- Variables  -----  */
+:root {
+  --custom-color-name:;
+  --custom-embellishment-name:;
+}
+
+/*  ----- Viewport ----- elements inherited by all remaining elements ----- */
+body {       /* Can alternatively define in html {} or :root {} */
+    background-color: rgb(12, 12, 12);
+    font-family: 'Noto Sans', sans-serif;;
+    font-size: 15px;
+    margin: 0px;
+    padding: 0px;
+}
+
+/* ----- Anchors ----- Text links */
+a {
+    margin: 0px;
+    padding: 0px;
+}
+a:link {}
+a:hover {}
+a:active {}
+a:visited {}
+
+/*  ----- Navigation ----- Override text links for navigation only.  */
+nav {
+    background-color: black;
+    margin: 0px;
+    min-width: 500px;
+    padding: 0px;
+}
+
+nav a {
+    display: inline-table;
+    font-size: 16px;
+    padding: 0px;
+    text-decoration: none;
+    vertical-align: middle;
+}
+
+nav a img {
+    height: 47px;
+    width: 218px;
+}
+
+/*  ----- Page layout blocks -----  */
+header {}
+main {}
+section {}
+  article {}
+    #topic1 {}
+    #topic2 {}
+    #gallery1 {}
+    #gallery2 {}
+div {}
+aside {}
+footer {}
+
+/*  -----  Typography  ----- */
+p {
+    font-size: 15px;
+    margin: 0px;
+    padding: 0px;
+}
+br {}
+ol, ul, dl {}
+li {}
+dt {}
+dd {}
+
+h1, h2, h3, h4, h5, h6 {
+    margin: 0px;
+    padding: 0px;
+} /* Define consistant font family.*/
+h1 {}
+h2 {}
+h3 {}
+h4 {}
+h5 {}
+h6 {}
+
+abbr {}
+acronym {}
+address {}
+blockquote {}
+  q {}
+  cite {}
+em {}
+hr {}
+mark {}
+s {}
+span {}
+strong {}
+sub {}
+sup {}
+time {}
+
+/*  ----- Coding or instructional typography ----- */
+pre {}
+code {}
+kbd {}
+samp {}
+var {}
+del {} 
+ins {}
+
+/*  ----- Table ----- */
+table {}
+caption {}
+thead {}
+tbody {}
+tfoot {}
+tr {}
+  tr:nth-child(even) {}
+th {}
+td {}
+  td:nth-child(1) {}
+colgroup {}
+data {}
+datalist {}
+
+
+/*  ----- Form ----- */
+form {}
+fieldset {}
+  legend {}
+label {}
+  button {}
+  input {}
+  output {}
+  meter {}
+  progress {}
+  select {}
+    optgroup {}
+    option {}
+  textarea {}
+
+/* ----- Media ----- */
+figure {}
+  figcaption {}
+img {}
+svg {}
+picture {}
+  source {}
+iframe {
+}
+video {}
+audio {}
+embed {}
+object {}
+
+
+/*  ----- Classes for alignment, positioning, widths, grids, embellishments, and animation -----  */
+.floatright {}
+.floatleft {}
+.center-middle {}
+
+.ten {}
+.twenty {}
+.thirty {}
+.forty {}
+.fifty {}
+.sixty {}
+.seventy {}
+.eighty {}
+
+.radius {}
+.circle {}
+.boxshadow {}
+.tshadow {} 
+.gradient {}
+.shape {}
+
+.style_navbar_main_text_href {
+    color: white;
+    margin-left: 20px;
+    padding: 15px;
+}
+
+.style_navbar_main_text_href:hover {
+    color: rgb(139, 30, 247);
+}
+
+.component_content_pane_header_main {
+    background-color: rgb(33, 33, 33);
+    color: rgb(139, 30, 247);
+    border: solid 2px black;
+    max-width: 650px;
+    padding: 2px;
+    text-align: center;
+}
+
+.component_content_pane_iframe {
+    background-color: rgb(33, 33, 33);
+    border: solid 2px black;
+    border-radius: 20px;
+    max-width: 1200px;
+    padding: 10px;
+}
+
+.component_content_pane_text {
+    background-color: rgb(33, 33, 33);
+    border: solid 2px black;
+    border-radius: 10px;
+    color: rgb(223, 205, 250);
+    max-width: 1200px;
+    padding: 10px;
+}
+
+.component_content_pane_text strong {
+    color: rgb(139, 30, 247);
+}
+
+#content_area_calculator_page {
+    padding-bottom: 100px;
+    padding-left: 10%;
+    padding-right: 10%;
+    padding-top: 40px;
+}
+
+#content_area_calculator_page > .component_content_pane_header_main {
+    margin: auto;
+    margin-bottom: 60px;
+}
+
+#content_area_calculator_page > .component_content_pane_text {
+    margin: auto;
+    margin-bottom: 30px;
+}
+
+#content_area_calculator_page .component_content_pane_iframe {
+    margin: auto;
+}
+
+#content_area_calculator_page .component_content_pane_iframe iframe {
+    height: 600px;
+    width: 1200px;
+}
+
+@keyframes App-logo {}
+
+/*   ===== TABLET  media query overrides mobile styles ===== */
+@media all and (min-width: 600px) {}
+
+/*   ===== DESKTOP  media query overrides mobile and tablet styles ===== */
+@media all and (min-width: 1080px) {}
+
+/*   ===== PRINT  media query overrides previous styles =====  */
+@media print {}
