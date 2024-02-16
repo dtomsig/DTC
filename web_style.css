@@ -1,28 +1,7 @@
 /*  ===== MOBILE styles (reside at the top and are inherited by all devices) ===== */
 /*  ===== See tablet, desktop, and print @media queries at the bottom. */
 
-
 /*   ----- Imports  -----  */
-          /* Add fonts from the app's server 
-@font-face {                
-  font-family: 'FontName';
-  src: url('FontName.woff2') format('woff2');
-} 
-          */                           
-
-          /* ...or hosted services like Google Fonts 
-@import url(//fonts.googleapis.com/css?family=Font+Name);
-          */
-
-@import '../node_modules/modern-normalize/modern-normalize.css';
-          /* npm install modern-normalize 
-            Resets elements for browser consistancy.  
-            http://nicolasgallagher.com/about-normalize-css/ 
-          */
-
-          /* Component-specific stylesheets, if any 
-@import "component1.css";   
-          */
 
 /*   ----- Variables  -----  */
 :root {
@@ -33,34 +12,38 @@
 /*  ----- Viewport ----- elements inherited by all remaining elements ----- */
 body {       /* Can alternatively define in html {} or :root {} */
     background-color: rgb(12, 12, 12);
-    font-family: 'Noto Sans', sans-serif;;
-    font-size: 15px;
-    margin: 0px;
-    padding: 0px;
+    color: rgb(223, 205, 250);
+    font-family: 'Noto Sans', sans-serif;
 }
 
 /* ----- Anchors ----- Text links */
 a {
+    font-family: 'Noto Sans', sans-serif;
     margin: 0px;
     padding: 0px;
 }
-a:link {}
-a:hover {}
+
+a:link {
+    font-size: 16px;
+    text-decoration: none; 
+}
+
+a:hover {
+    color: rgb(139, 30, 247);
+}
+
 a:active {}
 a:visited {}
+
 
 /*  ----- Navigation ----- Override text links for navigation only.  */
 nav {
     background-color: black;
-    margin: 0px;
-    min-width: 500px;
-    padding: 0px;
+    width: 100%;
 }
 
 nav a {
-    display: inline-table;
-    font-size: 16px;
-    padding: 0px;
+    display: inline-block;
     text-decoration: none;
     vertical-align: middle;
 }
@@ -71,7 +54,9 @@ nav a img {
 }
 
 /*  ----- Page layout blocks -----  */
-header {}
+header {
+
+}
 main {}
 section {}
   article {}
@@ -86,9 +71,9 @@ footer {}
 /*  -----  Typography  ----- */
 p {
     font-size: 15px;
-    margin: 0px;
-    padding: 0px;
+    line-height: 19px;
 }
+
 br {}
 ol, ul, dl {}
 li {}
@@ -96,11 +81,21 @@ dt {}
 dd {}
 
 h1, h2, h3, h4, h5, h6 {
-    margin: 0px;
-    padding: 0px;
+
 } /* Define consistant font family.*/
-h1 {}
-h2 {}
+
+h1 {
+    color: rgb(139, 30, 247);
+    font-size: 30px;
+    font-weight: bold;
+}
+
+h2 {
+    color: rgb(139, 30, 247);
+    font-size: 24px;
+    font-weight: bold;
+}
+
 h3 {}
 h4 {}
 h5 {}
@@ -117,7 +112,12 @@ hr {}
 mark {}
 s {}
 span {}
-strong {}
+
+strong {
+    color: rgb(139, 30, 247);
+    font-weight: bold;
+}
+
 sub {}
 sup {}
 time {}
@@ -132,15 +132,32 @@ del {}
 ins {}
 
 /*  ----- Table ----- */
-table {}
+table {
+}
+
+table tr * {
+    vertical-align: middle;
+
+}
 caption {}
 thead {}
 tbody {}
 tfoot {}
 tr {}
   tr:nth-child(even) {}
-th {}
-td {}
+  
+th {
+    font-size: 13px;
+    padding: 1px;
+    text-align: center;
+}
+
+td {
+    font-size: 13px;
+    padding: 1px;
+    text-align: center;
+}
+
   td:nth-child(1) {}
 colgroup {}
 data {}
@@ -151,13 +168,31 @@ datalist {}
 form {}
 fieldset {}
   legend {}
-label {}
+  
+label {
+    font-size: 15px;
+    line-height: 17px;
+}
+
   button {}
-  input {}
-  output {}
+  
+  input {
+    background-color: rgb(20, 20, 20);
+    border: none;
+    color: rgb(223, 205, 250);
+    font-family: 'Noto Sans', sans-serif;
+    font-size: 13px;
+    text-align: center;
+  }
+  
+  output {
+    font-size: 15px;
+    line-height: 17px;
+  }
   meter {}
   progress {}
-  select {}
+  select {
+  }
     optgroup {}
     option {}
   textarea {}
@@ -198,70 +233,225 @@ object {}
 .gradient {}
 .shape {}
 
-.style_navbar_main_text_href {
+.cl_style__button_blue {
+    background-color: rgb(33, 33, 33);
+    border-color: rgb(139, 30, 247);
+    color: rgb(223, 205, 250);
+    font-size: 14px;
+    font-family: 'Noto Sans', sans-serif;;
+
+}
+
+.cl_style__content_pane_general_w_1200 {
+    background-color: rgb(33, 33, 33);
+    border: solid 2px black;
+    border-radius: 10px;
+    overflow: auto;
+    padding: 13px;
+    white-space: nowrap
+}
+
+.cl_style__content_pane_general_w_1200 h2 {
+    margin-bottom: 30px;
+}
+
+.cl_style__heading_w_1200 {
+    background-color: rgb(33, 33, 33);
+    border: solid 2px black;
+    max-width: 650px;
+    padding: 8px;
+    text-align: center;
+}
+
+/* A rule for the general <a> element cannot be done because the rule would apply to both image anchors and text 
+   anchors. This rule is meant to apply to text anchors. */
+.cl_style__navbar_main_text_href {
     color: white;
     margin-left: 20px;
     padding: 15px;
 }
 
-.style_navbar_main_text_href:hover {
+#id_anchor__excel_download img {
+    margin-left: 100px;
+    margin-top: 80px;
+    max-width: 60px;
+}
+
+#id_anchor__excel_download p {
     color: rgb(139, 30, 247);
+    font-weight: bold;
+    margin-bottom: 30px;
+    margin-left: 90px;
+    margin-top: 5px;
 }
 
-.component_content_pane_header_main {
-    background-color: rgb(33, 33, 33);
+#id_form__calculator_control_panel {
+    align-items: center;
     color: rgb(139, 30, 247);
-    border: solid 2px black;
-    max-width: 650px;
-    padding: 2px;
-    text-align: center;
+    display: grid;
+    font-weight: bold;
+    float: left;
+    grid-template-columns: auto 70px auto;
+    margin-bottom: 30px;
+    margin-left: 30px;
+    row-gap: 1px;
+    text-align: right;
 }
 
-.component_content_pane_iframe {
-    background-color: rgb(33, 33, 33);
-    border: solid 2px black;
-    border-radius: 20px;
-    max-width: 1200px;
-    padding: 10px;
+/* <label> for "id_input__marginal_tax_rate" */ 
+#id_form__calculator_control_panel :nth-child(1){
+    grid-column: 1 / span 1;
+    grid-row: 1;
 }
 
-.component_content_pane_text {
-    background-color: rgb(33, 33, 33);
-    border: solid 2px black;
-    border-radius: 10px;
+/* <input> "id_input__marginal_tax_rate" */
+#id_form__calculator_control_panel :nth-child(2){
+    grid-column: 2 / span 1;
+    grid-row: 1;
+    margin-left: 15px;
+}
+
+/* <label> for "id_input__terminal_growth_rate" */
+#id_form__calculator_control_panel :nth-child(3){
+    grid-column: 1 / span 1;
+    grid-row: 2;
+}
+
+/* <input> "id_input__terminal_growth_rate" */
+#id_form__calculator_control_panel :nth-child(4){
+    grid-column: 2 / span 1;
+    grid-row: 2;
+    margin-left: 15px;
+}
+
+/* <label> for "id_input__equity_capital_opportunity_cost" */
+#id_form__calculator_control_panel :nth-child(5){
+    grid-column: 1 / span 1;
+    grid-row: 3;
+}
+
+/* <input> "id_input__equity_capital_opportunity_cost" */
+#id_form__calculator_control_panel :nth-child(6){
+    grid-column: 2 / span 1;
+    grid-row: 3;
+    margin-left: 15px;
+}
+
+/* <p> with text "Predicted Stock Price:" */
+#id_form__calculator_control_panel :nth-child(7){
+    grid-column: 1 / span 1;
+    grid-row: 4;
+    margin-top: 10px;
+}
+
+/* <output> with predicted stock price text */
+#id_form__calculator_control_panel :nth-child(8){
+    grid-column: 2 / span 1;
+    grid-row: 4;
+    margin-left: 22px;
+    margin-top: 11px;
+    text-align: left;
+}
+
+/* <div> "id_fieldset__calculator_control_panel_buttons */
+#id_form__calculator_control_panel :nth-child(9){
+    grid-column: 3 / span 1;
+    grid-row: 4;
+    margin-left: 480px;
+    margin-top: 10px;
+}
+
+
+#id_form__calculator_control_panel output{
     color: rgb(223, 205, 250);
-    max-width: 1200px;
-    padding: 10px;
+    margin-right: 22px;
 }
 
-.component_content_pane_text strong {
-    color: rgb(139, 30, 247);
+#id_form__calculator_control_panel_button_row {
 }
 
-#content_area_calculator_page {
+#id_form__calculator_control_panel_button_row button:nth-of-type(1){
+    margin-right: 10px;
+}
+
+#id_form__calculator_control_panel input {
+    width: 40px;
+}
+
+
+#id_input__slider {
+    accent-color: rgb(139, 30, 247);
+    display: inline;
+    margin-bottom: 40px;
+    margin-left: 20px;
+}
+
+#id_section__calculators {
+    overflow: auto;
     padding-bottom: 100px;
     padding-left: 10%;
     padding-right: 10%;
-    padding-top: 40px;
+
 }
 
-#content_area_calculator_page > .component_content_pane_header_main {
+#id_section__calculators > .cl_style__heading_w_1200 {
     margin: auto;
     margin-bottom: 60px;
+    margin-top: 30px;
 }
 
-#content_area_calculator_page > .component_content_pane_text {
+#id_section__calculators > .cl_style__content_pane_general_w_1200 {
     margin: auto;
-    margin-bottom: 30px;
+    margin-bottom: 100px;
 }
 
-#content_area_calculator_page .component_content_pane_iframe {
-    margin: auto;
+/* white-space is set to normal. This is because the cl_style__content_pane_general_w_1200 sets the white-space to 
+   nowrap and gets inherited by the table. The intended behavior is white-space set to normal. */
+#id_table__calculator_table {
+    display: inline-block;
+    margin-bottom: 50px;
+    margin-left: 70px;
+    margin-top: 20px;
+    min-width: 900px;
+    white-space: normal;
 }
 
-#content_area_calculator_page .component_content_pane_iframe iframe {
-    height: 600px;
-    width: 1200px;
+#id_table__calculator_table input {
+    width: 75px;
+}
+
+/* Sets the border and width of the leftmost column. */
+#id_table__calculator_table colgroup col:nth-of-type(1) {
+    border-right: 1px black solid;
+    width: 200px;
+}
+
+/* Sets the width of the all other columns to the right of the leftmost one (not including leftmost column). */
+#id_table__calculator_table colgroup col:nth-of-type(2)  {
+    width: 75px;
+}
+
+/* Applies styling to the cells in the leftmost column. */
+#id_table__calculator_table tr td:nth-of-type(1) {
+    color: rgb(139, 30, 247);
+    text-align: left;
+    font-weight: bold;
+    font-size: 15px;
+}
+
+/* Applies styling to the first row and will display the bottom border. */
+#id_table__calculator_table tr:nth-of-type(1) {
+    border-bottom: 2px solid black;
+}
+
+/* Applies styling to the <th> elements in the first row to increase font size. */
+#id_table__calculator_table tr:nth-of-type(1) th{
+    font-size: 15px;
+}
+
+/* Creates bottom padding in cells in the first row to move the cells' text slightly up. */
+#id_table__calculator_table tr:nth-of-type(1) *{
+    padding-bottom: 5px;
 }
 
 @keyframes App-logo {}

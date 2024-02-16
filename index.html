@@ -10,94 +10,402 @@
         <link rel = "preconnect" href = "https://fonts.googleapis.com">
         <link rel = "preconnect" href = "https://fonts.gstatic.com" crossorigin>
         <link href = "https://fonts.googleapis.com/css2?family=Noto+Sans:wght@300;400&display=swap" rel = "stylesheet">
+        <link rel = "stylesheet" href = "./reset.css">
         <link rel = "stylesheet" href = "./web_style.css">
         <link rel = "icon" href = "./favicon.png">
+        
+        <script src = "./stock_calc.js"> </script> 
     </head>
 
-    <body>
+    <body onload = "init_calc_page();">
         <header>
             <nav>
                 <a href = "">
-                    <img src = "logo.png">
+                    <img src = "./logo.png">
                 </a>
-                <a href = "" class = "style_navbar_main_text_href">
+                <a href = "" class = "cl_style__navbar_main_text_href">
                     Stock
                 </a>
             </nav>
         </header>
 
-        <div id = "content_area_calculator_page">
-            <div class = "component_content_pane_header_main">
-                <h1>
+        <main id = "id_main__calculator_page">
+            <section id = "id_section__calculators">
+                <h1 class = "cl_style__heading_w_1200">
                     Residual Income Stock Price Calculator
                 </h1>
-            </div>
-            
-            <div class = "component_content_pane_text">
-                <p>
-                    I am uploading  my top secret model to the Internet. Blue numbers in the excel spreadsheet indicate
-                    an input field.
-                    <br>
-                    <br>
-                    Alternatively, you can download the Excel document by clicking the view full-size workbook button at
-                    the very bottom of the iFrame.
-                    <br>
-                    <br>
-                    <br>
-                    <strong><u>Instructions (Line By Line):</u></strong>
-                    <br>
-                    <br>
-                    Replace blue numbers for values below. Output data will appear in the "Valuation Model Outputs"
-                    section.
-                    <br>
-                    <br>
-                    <strong>Revenue</strong> - Revenue for Year 0 (millions).
-                    <br>
-                    <strong>% Growth</strong> - Predict revenue growth percentage for the next 10 years.
-                    <br>
-                    <strong>% Gross Profit Margin</strong> - Predict gross margin percentage for the next 10 years.
-                    <br>
-                    <strong>Operating Expenses</strong> - Predict dollar amount (millions) of operating expenses for the
-                    next 10 years.
-                    <br>
-                    <strong>Interest Expense/Other Expenses</strong> - Predict interest/other expenses (millions) to
-                    arrive at net income for the next 10 years.
-                    <br>
-                    <strong>Net Income</strong> - Net income for Year 0. Net incomes for Year 1 through Year 10 are
-                    calculated.
-                    <br>
-                    <strong>Book Value</strong> - (Assets - Liabilities) at the end of Year 0 (millions).
-                    <br>
-                    <strong>Number of Share Outstanding</strong> - Average shares outstanding for Year 0 (millions).
-                    Optional as it does not affect the predicted stock price.
-                    <br>
-                    <strong>% Change</strong> - Predict stock buybacks or dilution for the next 10 years. Optional as it
-                    does not affect the predicted stock price.
-                    <br>
-                    <strong>Current Stock Price</strong> - Company's current stock price. Optional as it does not affect
-                    the predicted stock price.
-                    <br>
-                    <strong>Competitor PE Ratio</strong> - A competitor's PE ratio. Optional as it does not affect the
-                    predicted stock price.
-                    <br>
-                    <strong>Marginal Tax Rate</strong> - Company's marginal tax rate. 15% is is the default value
-                    because it is the average corporate tax rate.
-                    <br>
-                    <strong>Equity Capital Opportunity Cost</strong> - Desired rate of return on investment. 10% is the
-                    default value because it is the average index stock market return.
-                    <br>
-                    <strong>Terminal Growth Rate</strong> - Terminal growth rate of business at Year 10. 5% is the
-                    default.
-                </p>
-            </div>
-            
-            <div class = "component_content_pane_iframe">
-                <iframe frameborder = "0" scrolling = "no"
-                        src = "https://onedrive.live.com/embed?resid=5DE87B81F4484335!279&authkey=!AAXhoU8L8LhVpUs&em=2&
-                               wdAllowInteractivity=True&AllowTyping=True&wdHideGridlines=True&wdHideHeaders=True&wdDown
-                               loadButton=True&wdInConfigurator=True&wdInConfigurator=True">
-                </iframe>
-            </div>
-        </div>
+
+                <article class = "cl_style__content_pane_general_w_1200" id = "id_article__calculator"
+                         onfocusin = "remove_empty_char_on_focus(event);"
+                         onfocusout = "transfer_html_to_table(); recompute_model(); transfer_table_to_html();
+                                       format_calc_fields();"
+                         oninput = "verify_numerical_while_inputting(event);">
+                    <h2> Calculator </h2>
+                    
+                    <table id = "id_table__calculator_table" >
+                        <colgroup>
+                            <col span = 1>
+                            <col>
+                        <colgroup>
+                        <tr>
+                            <th>
+                            </th>
+                            <th>
+                                <strong> Current Year </strong>
+                            </th>
+                            <th>
+                                <strong> Year 1 </strong>
+                            </th>
+                            <th>
+                                <strong> Year 2 </strong>
+                            </th>
+                            <th>
+                                <strong> Year 3 </strong>
+                            </th>
+                            <th>
+                                <strong> Year 4 </strong>
+                            </th>
+                            <th>
+                                <strong> Year 5 </strong>
+                            </th>
+                            <th>
+                                <strong> Year 6 </strong>
+                            </th>
+                            <th>
+                                <strong> Year 7 </strong>
+                            </th>
+                        </tr>
+
+                        <tr>
+                            <td>
+                                Revenue
+                            </td>
+                            <td>
+                                <input autocomplete = "off" type = "text">
+                            </td>
+                            <td>
+                            </td>
+                            <td>
+                            </td>
+                            <td>
+                            </td>
+                            <td>
+                            </td>
+                            <td>
+                            </td>
+                            <td>
+                            </td>
+                            <td>
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td>
+                                % Revenue Growth
+                            </td>
+                            <td>
+                            </td>
+                            <td>
+                                <input autocomplete = "off" type = "text">
+                            </td>
+                            <td>
+                                <input autocomplete = "off" type = "text">
+                            </td>
+                            <td>
+                                <input autocomplete = "off" type = "text">
+                            </td>
+                            <td>
+                                <input autocomplete = "off" type = "text">
+                            </td>
+                            <td>
+                                <input autocomplete = "off" type = "text">
+                            </td>
+                            <td>
+                                <input autocomplete = "off" type = "text">
+                            </td>
+                            <td>
+                                <input autocomplete = "off" type = "text">
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td>
+                                % Gross Profit Margin
+                            </td>
+                            <td>
+                                <input autocomplete = "off" type = "text">
+                            </td>
+                            <td>
+                                <input autocomplete = "off" type = "text">
+                            </td>
+                            <td>
+                                <input autocomplete = "off" type = "text">
+                            </td>
+                            <td>
+                                <input autocomplete = "off" type = "text">
+                            </td>
+                            <td>
+                                <input autocomplete = "off" type = "text">
+                            </td>
+                            <td>
+                                <input autocomplete = "off" type = "text">
+                            </td>
+                            <td>
+                                <input autocomplete = "off" type = "text">
+                            </td>
+                            <td>
+                                <input autocomplete = "off" type = "text">
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td>
+                                Operating Expenses
+                            </td>
+                            <td>
+                                <input autocomplete = "off" type = "text">
+                            </td>
+                            <td>
+                                <input autocomplete = "off" type = "text">
+                            </td>
+                            <td>
+                                <input autocomplete = "off" type = "text">
+                            </td>
+                            <td>
+                                <input autocomplete = "off" type = "text">
+                            </td>
+                            <td>
+                                <input autocomplete = "off" type = "text">
+                            </td>
+                            <td>
+                                <input autocomplete = "off" type = "text">
+                            </td>
+                            <td>
+                                <input autocomplete = "off" type = "text">
+                            </td>
+                            <td>
+                                <input autocomplete = "off" type = "text">
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td>
+                                Interest Expenses
+                            </td>
+                            <td>
+                                <input autocomplete = "off" type = "text">
+                            </td>
+                            <td>
+                                <input autocomplete = "off" type = "text">
+                            </td>
+                            <td>
+                                <input autocomplete = "off" type = "text">
+                            </td>
+                            <td>
+                                <input autocomplete = "off" type = "text">
+                            </td>
+                            <td>
+                                <input autocomplete = "off" type = "text">
+                            </td>
+                            <td>
+                                <input autocomplete = "off" type = "text">
+                            </td>
+                            <td>
+                                <input autocomplete = "off" type = "text">
+                            </td>
+                            <td>
+                                <input autocomplete = "off" type = "text">
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td>
+                                Other Expenses
+                            </td>
+                            <td>
+                                <input autocomplete = "off" type = "text">
+                            </td>
+                            <td>
+                                <input autocomplete = "off" type = "text">
+                            </td>
+                            <td>
+                                <input autocomplete = "off" type = "text">
+                            </td>
+                            <td>
+                                <input autocomplete = "off" type = "text">
+                            </td>
+                            <td>
+                                <input autocomplete = "off" type = "text">
+                            </td>
+                            <td>
+                                <input autocomplete = "off" type = "text">
+                            </td>
+                            <td>
+                                <input autocomplete = "off" type = "text">
+                            </td>
+                            <td>
+                                <input autocomplete = "off" type = "text">
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td>
+                                Net Income
+                            </td>
+                            <td>
+                            </td>
+                            <td>
+                            </td>
+                            <td>
+                            </td>
+                            <td>
+                            </td>
+                            <td>
+                            </td>
+                            <td >
+                            </td>
+                            <td>
+                            </td>
+                            <td>
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td>
+                                Book Value (End of Year)
+                            </td>
+                            <td>
+                                <input autocomplete = "off" type = "text">
+                            </td>
+                            <td>
+                            </td>
+                            <td>
+                            </td>
+                            <td>
+                            </td>
+                            <td>
+                            </td>
+                            <td>
+                            </td>
+                            <td>
+                            </td>
+                            <td>
+                            </td>
+                        </tr>
+                        
+                        <tr>
+                            <td>
+                                Shares Outstanding (End of Year)
+                            </td>
+                            <td>
+                                <input autocomplete = "off" id = "id_input__num_shares_outstanding" type = "text">
+                            </td>
+                        </tr>
+                    </table>
+   
+                    <input autocomplete = "off" id = "id_input__slider" min = "1" max = "7" step = "1" 
+                           onchange = "resize_calc_table();" type = "range" value = "7">
+                           
+                    <form id = "id_form__calculator_control_panel">
+                        <label for = "id_input__marginal_tax_rate">
+                            Marginal Tax Rate:
+                        </label>
+                        <input autocomplete = "off" id = "id_input__marginal_tax_rate" type = "text" value = "15">
+
+                        <label for = "id_input__terminal_growth_rate">
+                            Terminal Growth Rate:
+                        </label>
+                        <input autocomplete = "off" id = "id_input__terminal_growth_rate" type = "text" value = "5">
+
+                        <label for = "id_input__equity_capital_opportunity_cost">
+                            Equity Capital Opportunity Cost:
+                        </label>
+                        <input autocomplete = "off" id = "id_input__equity_capital_opportunity_cost" type = "text"
+                               value = "10">
+
+                        <p>
+                            Predicted Stock Price:
+                        </p>
+
+                        <output id = "id_output__predicted_stock_price">
+                            Not Calculated
+                        </output>
+
+                         <fieldset id = "id_fieldset__calculator_control_panel_buttons">
+                            <button class = "cl_style__button_blue" onclick = "recompute_model();
+                                                                               transfer_price_to_html();
+                                                                               format_calc_fields();"
+                                    type = "button">
+                                Calculate
+                            </button>
+                            <button class = "cl_style__button_blue" onclick = "clear_calc();" type = "button">
+                                Clear
+                            </button>
+                        </fieldset>
+                    </form>
+                </article>
+
+                <article class = "cl_style__content_pane_general_w_1200">
+                    <h2> Excel Version </h2>
+
+                    <p>
+                        Here is my top secret model. Blue numbers in the excel spreadsheet indicates an input field.
+                        <br>
+                        <br>
+                        <strong><u>Instructions (Line By Line):</u></strong>
+                        <br>
+                        <br>
+                        Replace blue numbers for values below. Output data will appear in the "Valuation Model Outputs"
+                        section.
+                        <br>
+                        <br>
+                        <strong>Revenue</strong> - Revenue for Current Year (millions).
+                        <br>
+                        <strong>% Growth</strong> - Predict revenue growth percentage for the next 10 years.
+                        <br>
+                        <strong>% Gross Profit Margin</strong> - Predict gross margin percentage for the next 10 years.
+                        <br>
+                        <strong>Operating Expenses</strong> - Predict dollar amount (millions) of operating expenses for
+                        the next 10 years.
+                        <br>
+                        <strong>Interest Expense/Other Expenses</strong> - Predict interest/other expenses (millions) to
+                        arrive at net income for the next 10 years.
+                        <br>
+                        <strong>Net Income</strong> - Net income for Current Year. Net incomes for Year 1 through Year 
+                        10 are calculated.
+                        <br>
+                        <strong>Book Value</strong> - (Assets - Liabilities) at the end of Current Year (millions).
+                        <br>
+                        <strong>Number of Share Outstanding</strong> - Average shares outstanding for Current Year
+                        (millions).  Optional as it does not affect the predicted stock price.
+                        <br>
+                        <strong>% Change</strong> - Predict stock buybacks or dilution for the next 10 years. Optional
+                        as it does not affect the predicted stock price.
+                        <br>
+                        <strong>Current Stock Price</strong> - Company's current stock price. Optional as it does not
+                        affect the predicted stock price.
+                        <br>
+                        <strong>Competitor PE Ratio</strong> - A competitor's PE ratio. Optional as it does not affect
+                        the predicted stock price.
+                        <br>
+                        <strong>Marginal Tax Rate</strong> - Company's marginal tax rate. 15% is is the default value
+                        because it is the average corporate tax rate.
+                        <br>
+                        <strong>Equity Capital Opportunity Cost</strong> - Desired rate of return on investment. 10% is
+                        the default value because it is the average index stock market return.
+                        <br>
+                        <strong>Terminal Growth Rate</strong> - Terminal growth rate of business at Year 10. 5% is the
+                        default.
+                    </p>
+
+                    <a href = "./Residual Income Valuation.xlsx" id = "id_anchor__excel_download">
+                        <img id = "id_img__excel_download" src = "./excel_download.png">
+                        <p>
+                            Download
+                        </p>
+                    </a>
+                </article>
+            </section>
+        </main>
     </body>
 </html>
