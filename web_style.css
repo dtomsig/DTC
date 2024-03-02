@@ -361,7 +361,6 @@ object {}
     margin-top: 10px;
 }
 
-
 #id_form__calculator_control_panel output{
     color: rgb(223, 205, 250);
     margin-right: 22px;
@@ -378,12 +377,36 @@ object {}
     width: 40px;
 }
 
-
 #id_input__slider {
     accent-color: rgb(139, 30, 247);
-    display: inline;
-    margin-bottom: 40px;
-    margin-left: 20px;
+    background-color: rgb(33, 33, 33);
+    border: 1px solid rgb(139, 30, 247);;
+    display: block;
+    height: 8px;
+    margin-bottom: 20px;
+    margin-left: 1000px;
+   -webkit-appearance: none;
+}
+
+/* For Chrome/Safari browser. */
+#id_input__slider::-webkit-slider-thumb {
+    appearance: none;
+    background: rgb(20, 20, 20);
+    border: 1px solid rgb(139, 30, 247);
+    cursor: pointer;
+    height: 28px;
+    -webkit-appearance: none;
+    width: 10px;
+}
+
+/* For Firefox browser. */
+#id_input__slider::-moz-range-thumb {
+    background: rgb(20, 20, 20);
+    border: 1px solid rgb(139, 30, 247);
+    cursor: pointer;
+    height: 28px;
+    width: 10px;
+
 }
 
 #id_section__calculators {
@@ -391,7 +414,6 @@ object {}
     padding-bottom: 100px;
     padding-left: 10%;
     padding-right: 10%;
-
 }
 
 #id_section__calculators > .cl_style__heading_w_1200 {
@@ -409,7 +431,7 @@ object {}
    nowrap and gets inherited by the table. The intended behavior is white-space set to normal. */
 #id_table__calculator_table {
     display: inline-block;
-    margin-bottom: 50px;
+    margin-bottom: 40px;
     margin-left: 70px;
     margin-top: 20px;
     min-width: 900px;
@@ -423,7 +445,7 @@ object {}
 /* Sets the border and width of the leftmost column. */
 #id_table__calculator_table colgroup col:nth-of-type(1) {
     border-right: 1px black solid;
-    width: 200px;
+    min-width: 200px;
 }
 
 /* Sets the width of the all other columns to the right of the leftmost one (not including leftmost column). */

@@ -13,7 +13,7 @@
         <link rel = "stylesheet" href = "./reset.css">
         <link rel = "stylesheet" href = "./web_style.css">
         <link rel = "icon" href = "./favicon.png">
-        
+
         <script src = "./stock_calc.js"> </script> 
     </head>
 
@@ -41,8 +41,8 @@
                                        format_calc_fields();"
                          oninput = "verify_numerical_while_inputting(event);">
                     <h2> Calculator </h2>
-                    
-                    <table id = "id_table__calculator_table" >
+
+                    <table id = "id_table__calculator_table">
                         <colgroup>
                             <col span = 1>
                             <col>
@@ -74,6 +74,15 @@
                             <th>
                                 <strong> Year 7 </strong>
                             </th>
+                            <th>
+                                <strong> Year 8 </strong>
+                            </th>
+                            <th>
+                                <strong> Year 9 </strong>
+                            </th>
+                             <th>
+                                <strong> Year 10 </strong>
+                            </th>
                         </tr>
 
                         <tr>
@@ -82,6 +91,12 @@
                             </td>
                             <td>
                                 <input autocomplete = "off" type = "text">
+                            </td>
+                            <td>
+                            </td>
+                            <td>
+                            </td>
+                            <td>
                             </td>
                             <td>
                             </td>
@@ -126,11 +141,29 @@
                             <td>
                                 <input autocomplete = "off" type = "text">
                             </td>
+                            <td>
+                                <input autocomplete = "off" type = "text">
+                            </td>
+                            <td>
+                                <input autocomplete = "off" type = "text">
+                            </td>
+                            <td>
+                                <input autocomplete = "off" type = "text">
+                            </td>
                         </tr>
 
                         <tr>
                             <td>
                                 % Gross Profit Margin
+                            </td>
+                            <td>
+                                <input autocomplete = "off" type = "text">
+                            </td>
+                            <td>
+                                <input autocomplete = "off" type = "text">
+                            </td>
+                            <td>
+                                <input autocomplete = "off" type = "text">
                             </td>
                             <td>
                                 <input autocomplete = "off" type = "text">
@@ -186,11 +219,29 @@
                             <td>
                                 <input autocomplete = "off" type = "text">
                             </td>
+                            <td>
+                                <input autocomplete = "off" type = "text">
+                            </td>
+                            <td>
+                                <input autocomplete = "off" type = "text">
+                            </td>
+                            <td>
+                                <input autocomplete = "off" type = "text">
+                            </td>
                         </tr>
 
                         <tr>
                             <td>
                                 Interest Expenses
+                            </td>
+                            <td>
+                                <input autocomplete = "off" type = "text">
+                            </td>
+                            <td>
+                                <input autocomplete = "off" type = "text">
+                            </td>
+                            <td>
+                                <input autocomplete = "off" type = "text">
                             </td>
                             <td>
                                 <input autocomplete = "off" type = "text">
@@ -246,6 +297,15 @@
                             <td>
                                 <input autocomplete = "off" type = "text">
                             </td>
+                            <td>
+                                <input autocomplete = "off" type = "text">
+                            </td>
+                            <td>
+                                <input autocomplete = "off" type = "text">
+                            </td>
+                            <td>
+                                <input autocomplete = "off" type = "text">
+                            </td>
                         </tr>
 
                         <tr>
@@ -262,7 +322,13 @@
                             </td>
                             <td>
                             </td>
-                            <td >
+                            <td>
+                            </td>
+                            <td>
+                            </td>
+                            <td>
+                            </td>
+                            <td>
                             </td>
                             <td>
                             </td>
@@ -291,8 +357,15 @@
                             </td>
                             <td>
                             </td>
+                            </td>
+                            <td>
+                            </td>
+                            <td>
+                            </td>
+                            <td>
+                            </td>
                         </tr>
-                        
+
                         <tr>
                             <td>
                                 Shares Outstanding (End of Year)
@@ -303,8 +376,8 @@
                         </tr>
                     </table>
    
-                    <input autocomplete = "off" id = "id_input__slider" min = "1" max = "7" step = "1" 
-                           onchange = "resize_calc_table();" type = "range" value = "7">
+                    <input autocomplete = "off" id = "id_input__slider" min = "1" max = "10" step = "1" 
+                           onchange = "resize_calc_table();" type = "range" value = "10">
                            
                     <form id = "id_form__calculator_control_panel">
                         <label for = "id_input__marginal_tax_rate">

@@ -3,15 +3,15 @@ let stock_price;
 
 let calc_table_vals = 
 [[                                '', 'Current Year', 'Year 1', 'Year 2', 'Year 3', 'Year 4', 'Year 5', 'Year 6',
-                                      'Year 7'],
- [                         'Revenue', 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00],
- [                '% Revenue Growth', 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00],
- [           '% Gross Profit margin', 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00],
- [              'Operating Expenses', 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00],
- [               'Interest Expenses', 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00],
- [                  'Other Expenses', 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00],
- [                      'Net Income', 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00],
- [        'Book Value (End of Year)', 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00],
+                                      'Year 7', 'Year 8', 'Year 9', 'Year 10'],
+ [                         'Revenue', 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00],
+ [                '% Revenue Growth', 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00],
+ [           '% Gross Profit margin', 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00],
+ [              'Operating Expenses', 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00],
+ [               'Interest Expenses', 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00],
+ [                  'Other Expenses', 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00],
+ [                      'Net Income', 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00],
+ [        'Book Value (End of Year)', 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00],
  [       'Share Count (End of Year)', 1.00]]
 
 
@@ -21,40 +21,26 @@ function clear_calc()
     document.getElementById('id_input__marginal_tax_rate').value = '15%';
     document.getElementById('id_input__terminal_growth_rate').value = '5%';
     document.getElementById('id_input__equity_capital_opportunity_cost').value = '10%';
-    
+
     // 2. Reset the calculator table's values to their default states.
     calc_table_vals = 
     [[                                '', 'Current Year', 'Year 1', 'Year 2', 'Year 3', 'Year 4', 'Year 5', 'Year 6',
-                                      'Year 7'],
-    [                         'Revenue', 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00],
-    [                '% Revenue Growth', 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00],
-    [           '% Gross Profit margin', 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00],
-    [              'Operating Expenses', 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00],
-    [               'Interest Expenses', 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00],
-    [                  'Other Expenses', 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00],
-    [                      'Net Income', 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00],
-    [        'Book Value (End of Year)', 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00],
+                                          'Year 7', 'Year 8', 'Year 9', 'Year 10'],
+    [                         'Revenue', 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00],
+    [                '% Revenue Growth', 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00],
+    [           '% Gross Profit margin', 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00],
+    [              'Operating Expenses', 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00],
+    [               'Interest Expenses', 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00],
+    [                  'Other Expenses', 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00],
+    [                      'Net Income', 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00],
+    [        'Book Value (End of Year)', 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00],
     [       'Share Count (End of Year)', 1.00]]
-    
+
     // 3. Transfer the reset calculator table values to HTML.
     transfer_table_to_html();
-    
+
     // 4. Reset stock price on calculator's display.
-     document.getElementById('id_output__predicted_stock_price').value = 'Not Calculated';
-}
-
-
-// Initializes the calculator DOM elements. This function is called when the onload event occurs for the <body>
-// element.
-function init_calc_page()
-{
-    // This will set the columns to hidden based on the value of the number of years slider (id = id_input__slider) 
-    // when the document is loaded. The slider's default value is 7. The hidden attribute is already applied so that
-    // seven years (Year 1 - Year 6) will appear on start up. This is redundant but is called to ensure that the inital
-    // number of years matches the value in the number of years slider.
-    resize_calc_table();
-    transfer_table_to_html();
-    format_calc_fields();
+    document.getElementById('id_output__predicted_stock_price').value = 'Not Calculated';
 }
 
 
@@ -66,7 +52,7 @@ function format_calc_fields()
     let ctrl_form = document.getElementById('id_form__calculator_control_panel');
     let calc_table = document.getElementById('id_table__calculator_table');
     let stock_price_text = document.getElementById('id_output__predicted_stock_price');
-    
+
     let rows = document.getElementById('id_table__calculator_table').rows;
 
     let ctrl_children = ctrl_form.children;
@@ -104,7 +90,7 @@ function format_calc_fields()
                 final_value = format_str_numerical(orig_value, 'percent');
             else
                 final_value = format_str_numerical(orig_value, 'number');
-            
+
             table_cell_store_text(cur_cell, final_value);
         }
     }
@@ -153,34 +139,17 @@ function get_float_from_str(str)
 }
 
 
-// Resizes the calculator table. This is done by taking the amount of years the user indicated they wanted to see
-// with the slider.
-function resize_calc_table()
+// Initializes the calculator DOM elements. This function is called when the onload event occurs for the <body>
+// element.
+function init_calc_page()
 {
-    // The number of projection years (Year 1 and beyond).
-    num_years = parseInt(document.getElementById('id_input__slider').value);
-
-    // 'idx_hidden' is the beginning index for all rows where the table should not be displayed.
-    // For row ['Year', 'Current Year', 'Year 1', 'Year 2', 'Year 3', 'Year 4', 'Year 5', 'Year 6', 'Year 7'], if 
-    // num_years is 1, then everything after 'Year 1' is be hidden. 'Year 1' would still be displayed'. Recall that 
-    // num_years is the number of years that is being modeled beyond the current year.
-    let idx_hidden = 2 + num_years;
-    let rows = document.getElementById('id_table__calculator_table').rows;
-
-    // Iterate through the cells in each row. If the cell's index is greater than idx_hidden, do not display that cell.
-    for(let i = 0; i < rows.length; i++)
-    {
-        let cur_row = rows[i].cells;
-
-        for(let j = 0; j < cur_row.length; j++)
-        {
-            let cur_cell = cur_row[j];
-            if(j < idx_hidden)
-                cur_cell.hidden = false;
-            else
-                cur_cell.hidden = true;
-        }
-    }
+    // This will set the columns to hidden based on the value of the number of years slider (id = id_input__slider) 
+    // when the document is loaded. The slider's default value is 7. The hidden attribute is already applied so that
+    // seven years (Year 1 - Year 6) will appear on start up. This is redundant but is called to ensure that the inital
+    // number of years matches the value in the number of years slider.
+    resize_calc_table();
+    transfer_table_to_html();
+    format_calc_fields();
 }
 
 
@@ -197,13 +166,13 @@ function recompute_model()
     let oth_exp_row         = calc_table_vals[6];
     let net_inc_row         = calc_table_vals[7];
     let book_val_row        = calc_table_vals[8];
-    
+
     let equity_ror          = get_float_from_str(document.getElementById('id_input__equity_capital_opportunity_cost')
                                                                           .value);
     let marg_tax_rate       = get_float_from_str(document.getElementById('id_input__marginal_tax_rate').value);
     let term_growth_rate    = get_float_from_str(document.getElementById('id_input__terminal_growth_rate').value);
     let num_shares          = get_float_from_str(document.getElementById('id_input__num_shares_outstanding').value);
-    
+
     let discounted_residuals_ttl = 0, terminal_residual = 0;
     let row_len = rev_row.length;
 
@@ -256,20 +225,51 @@ function recompute_model()
 }
 
 
-// Stores text information in the <td> and <th> table cell elements of the calculator table so that it can be displayed.
-function table_cell_store_text(cell, str)
+// This function should be used with the onfocusin event. If an <input> element triggers this event, the <input>
+// element's value is changed if its current value is '-'. This would occur on a blank input cell in the calculator
+// table. 
+function remove_empty_char_on_focus(event)
 {
-    // This if statement distinguishes between <td> and <th> elements do not have an <input> child vs. <td> and <th>
-    // elements that do have an <input> child. If the number of child nodes is greater than 1, the <td> or <th>
-    // element has an <input> child element at position 1. This is based on the structure of the HTML file associated
-    // with this function.
+    let targ_element = event.target;
 
-    // If there is no <input> child, the textContent of the <td> or <th> element must be  changed. If the <td> or <th>
-    // element  has an <input> child, the value of the <input> child must be changed, not the parent's textContent.
-    if(cell.childNodes.length > 1)                             // Has an <input> child, modify <input> child's value.
-        cell.childNodes[1].value = str;
-    else                                                       // No <input> child, modify textContent of parent.
-        cell.textContent = str;
+    if(targ_element.nodeName != 'INPUT')
+        return;
+
+    let str_value = targ_element.value;
+
+    if(str_value == '-')
+        targ_element.value = '';
+}
+
+
+// Resizes the calculator table. This is done by taking the amount of years the user indicated they wanted to see
+// with the slider.
+function resize_calc_table()
+{
+    // The number of projection years (Year 1 and beyond).
+    num_years = parseInt(document.getElementById('id_input__slider').value);
+
+    // 'idx_hidden' is the beginning index for all rows where the table should not be displayed.
+    // For row ['Year', 'Current Year', 'Year 1', 'Year 2', 'Year 3', 'Year 4', 'Year 5', 'Year 6', 'Year 7'], if 
+    // num_years is 1, then everything after 'Year 1' is be hidden. 'Year 1' would still be displayed'. Recall that 
+    // num_years is the number of years that is being modeled beyond the current year.
+    let idx_hidden = 2 + num_years;
+    let rows = document.getElementById('id_table__calculator_table').rows;
+
+    // Iterate through the cells in each row. If the cell's index is greater than idx_hidden, do not display that cell.
+    for(let i = 0; i < rows.length; i++)
+    {
+        let cur_row = rows[i].cells;
+
+        for(let j = 0; j < cur_row.length; j++)
+        {
+            let cur_cell = cur_row[j];
+            if(j < idx_hidden)
+                cur_cell.hidden = false;
+            else
+                cur_cell.hidden = true;
+        }
+    }
 }
 
 
@@ -290,12 +290,20 @@ function table_cell_retrieve(cell)
 }
 
 
-// Stores the stock price to the stock price <output> element.
-function transfer_price_to_html()
+// Stores text information in the <td> and <th> table cell elements of the calculator table so that it can be displayed.
+function table_cell_store_text(cell, str)
 {
-    // Ensures that numerical values are outputted with 2 digits shown.
-    let rounded_price = stock_price.toLocaleString("en", {useGrouping: false, minimumFractionDigits: 2});
-    document.getElementById('id_output__predicted_stock_price').value = rounded_price;
+    // This if statement distinguishes between <td> and <th> elements do not have an <input> child vs. <td> and <th>
+    // elements that do have an <input> child. If the number of child nodes is greater than 1, the <td> or <th>
+    // element has an <input> child element at position 1. This is based on the structure of the HTML file associated
+    // with this function.
+
+    // If there is no <input> child, the textContent of the <td> or <th> element must be  changed. If the <td> or <th>
+    // element  has an <input> child, the value of the <input> child must be changed, not the parent's textContent.
+    if(cell.childNodes.length > 1)                             // Has an <input> child, modify <input> child's value.
+        cell.childNodes[1].value = str;
+    else                                                       // No <input> child, modify textContent of parent.
+        cell.textContent = str;
 }
 
 
@@ -333,6 +341,15 @@ function transfer_html_to_table()
                 calc_table_vals[i][j] = Math.round(float_value * 100)/100;
         }
     }
+}
+
+
+// Stores the stock price to the stock price <output> element.
+function transfer_price_to_html()
+{
+    // Ensures that numerical values are outputted with 2 digits shown.
+    let rounded_price = stock_price.toLocaleString("en", {useGrouping: false, minimumFractionDigits: 2});
+    document.getElementById('id_output__predicted_stock_price').value = rounded_price;
 }
 
 
@@ -411,23 +428,7 @@ function verify_numerical_while_inputting(event)
         final_value = final_value + '.' + parts[1];
     if(orig_value[0] == '-')
         final_value = '-' + final_value;
-    
+
     // 3. Transfer the final string to the <input> element's value.
     targ_element.value = final_value;
-}
-
-// This function should be used with the onfocusin event. If an <input> element triggers this event, the <input>
-// element's value is changed if its current value is '-'. This would occur on a blank input cell in the calculator
-// table. 
-function remove_empty_char_on_focus(event)
-{
-    let targ_element = event.target;
-
-    if(targ_element.nodeName != 'INPUT')
-        return;
-
-    let str_value = targ_element.value;
-
-    if(str_value == '-')
-        targ_element.value = '';
 }
