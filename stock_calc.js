@@ -207,12 +207,11 @@ function recompute_model()
     // (num_years).
     for(let i = 2; i < num_years + 2; i++)
     {
-        let resid_income = (net_inc_row[i] - book_val_row[i - 1] * (equity_ror/100))
-                           /(Math.pow(1 + equity_ror/100, i - 1));
-        discounted_residuals_ttl += resid_income;
+        let resid_income = (net_inc_row[i] - book_val_row[i - 1] * (equity_ror/100));
+        discounted_residuals_ttl += resid_income / (Math.pow(1 + equity_ror/100, i - 1));
         
         // Terminal value is added for the last year in the model.
-        if(i + 1 == num_years)
+        if(i == num_years + 1)
         {
             terminal_residual = resid_income / (equity_ror/100 - term_growth_rate/100);
             discounted_residuals_ttl += terminal_residual/(Math.pow(1 + equity_ror/100, i - 1));
