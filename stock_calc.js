@@ -337,6 +337,8 @@ function transfer_html_to_table()
             if(isNaN(float_value))
                 calc_table_vals[i][j] = 0.00;
             else
+            // Rounds to the nearest hundredth place. If float_value = 3, the table will store a number type with its
+            // value set to 3. JavaScript represents the number 3.00 as a number type with value 3.
                 calc_table_vals[i][j] = Math.round(float_value * 100)/100;
         }
     }
@@ -346,8 +348,12 @@ function transfer_html_to_table()
 // Stores the stock price to the stock price <output> element.
 function transfer_price_to_html()
 {
-    // Ensures that numerical values are outputted with 2 digits shown.
-    let rounded_price = stock_price.toLocaleString("en", {useGrouping: false, minimumFractionDigits: 2});
+    // Ensures that numerical values are outputted with 2 decimal values. This command will round the stock price to
+    // nearest hundredth. For example, 0.005 rounds to 0.01. If the stock price is represented as a number such as 3,
+    // the function will transfer the string "3.00". This is done by specifying the minimum number of fraction digits.
+    // The number representation of 3.00 in JavaScript is 3. This ensuresthat the HTML displays "3.00" and not "3".
+    let rounded_price = stock_price.toLocaleString("en", {useGrouping: false, minimumFractionDigits: 2, 
+                                                          maximumFractionDigits: 2});
     document.getElementById('id_output__predicted_stock_price').value = rounded_price;
 }
 
@@ -359,9 +365,7 @@ function transfer_table_to_html()
 {
     let calc_table = document.getElementById('id_table__calculator_table');
     let calc_children = calc_table.getElementsByTagName("*");
-    
     let str_value = '';
-
     let rows = document.getElementById('id_table__calculator_table').rows;
 
     // Iterate through the cells in each row. If the cell's index is greater than idx_hidden, do not display that cell.
@@ -376,9 +380,17 @@ function transfer_table_to_html()
             if(calc_table_vals[i][j] == '0.00')
                 str_value = '-';
             else
-                // Ensures that numerical values are outputted with 2 digits shown.
-                str_value = calc_table_vals[i][j].toLocaleString("en", {useGrouping: false, minimumFractionDigits: 2});
+            {
+                // Ensures that numerical values are outputted with 2 decimal places shown The maximum fraction digit
+                // number does not need to be specified because table values are rounded to two decimal places on
+                // input by transfer_html_to_table().
 
+                // In transfer_html_to_table(), values are rounded to two decimal places. However, since JavaScript
+                // represents numbers such as 3.00 as number types with value 3, it is necessary to ensure that the
+                // minimum number of fraction digits is 2. Otherwise, the table would display the value "3" and not
+                // "3.00".
+                str_value = calc_table_vals[i][j].toLocaleString("en", {useGrouping: false, minimumFractionDigits: 2});
+            }
             table_cell_store_text(cur_cell, str_value);
         }
     }
