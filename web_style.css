@@ -11,7 +11,7 @@
 
 /*  ----- Viewport ----- elements inherited by all remaining elements ----- */
 body {       /* Can alternatively define in html {} or :root {} */
-    background-color: rgb(12, 12, 12);
+    background-color: rgb(25, 25, 112);
     color: rgb(223, 205, 250);
     font-family: 'Noto Sans', sans-serif;
 }
@@ -29,7 +29,7 @@ a:link {
 }
 
 a:hover {
-    color: rgb(139, 30, 247);
+    color: rgb(77, 33, 199);
 }
 
 a:active {}
@@ -85,13 +85,13 @@ h1, h2, h3, h4, h5, h6 {
 } /* Define consistant font family.*/
 
 h1 {
-    color: rgb(139, 30, 247);
+    color: rgb(80, 200, 120);
     font-size: 30px;
     font-weight: bold;
 }
 
 h2 {
-    color: rgb(139, 30, 247);
+    color: rgb(220, 20, 60);
     font-size: 24px;
     font-weight: bold;
 }
@@ -114,7 +114,7 @@ s {}
 span {}
 
 strong {
-    color: rgb(139, 30, 247);
+    color: rgb(77, 33, 199);
     font-weight: bold;
 }
 
@@ -177,7 +177,7 @@ label {
   button {}
   
   input {
-    background-color: rgb(20, 20, 20);
+    background-color: rgb(15, 15, 15);
     border: none;
     color: rgb(223, 205, 250);
     font-family: 'Noto Sans', sans-serif;
@@ -233,13 +233,18 @@ object {}
 .gradient {}
 .shape {}
 
-.cl_style__button_blue {
-    background-color: rgb(33, 33, 33);
-    border-color: rgb(139, 30, 247);
+.cl_style__button_black {
+    background-color: rgb(15, 15, 15);
+    border: solid 1px black;
     color: rgb(223, 205, 250);
     font-size: 14px;
-    font-family: 'Noto Sans', sans-serif;;
+    font-family: 'Noto Sans', sans-serif;
+    /* Top/Bottom Left/Right */
+    padding: 2px 6px;
+}
 
+.cl_style__button_black:active {
+    border-color: rgb(223, 205, 250);
 }
 
 .cl_style__content_pane_general_w_1200 {
@@ -278,7 +283,7 @@ object {}
 }
 
 #id_anchor__excel_download p {
-    color: rgb(139, 30, 247);
+    color: rgb(77, 33, 199);
     font-weight: bold;
     margin-bottom: 30px;
     margin-left: 90px;
@@ -287,7 +292,7 @@ object {}
 
 #id_form__calculator_control_panel {
     align-items: center;
-    color: rgb(139, 30, 247);
+    color: rgb(77, 33, 199);
     display: grid;
     font-weight: bold;
     float: left;
@@ -348,7 +353,7 @@ object {}
 #id_form__calculator_control_panel :nth-child(8){
     grid-column: 2 / span 1;
     grid-row: 4;
-    margin-left: 22px;
+    margin-left: 16px;
     margin-top: 11px;
     text-align: left;
 }
@@ -378,9 +383,9 @@ object {}
 }
 
 #id_input__slider {
-    accent-color: rgb(139, 30, 247);
+    accent-color: rgb(77, 33, 199);
     background-color: rgb(33, 33, 33);
-    border: 1px solid rgb(139, 30, 247);;
+    border: 1px solid rgb(77, 33, 199);;
     display: block;
     height: 8px;
     margin-bottom: 20px;
@@ -392,7 +397,7 @@ object {}
 #id_input__slider::-webkit-slider-thumb {
     appearance: none;
     background: rgb(20, 20, 20);
-    border: 1px solid rgb(139, 30, 247);
+    border: 1px solid rgb(77, 33, 199);
     cursor: pointer;
     height: 28px;
     -webkit-appearance: none;
@@ -402,7 +407,7 @@ object {}
 /* For Firefox browser. */
 #id_input__slider::-moz-range-thumb {
     background: rgb(20, 20, 20);
-    border: 1px solid rgb(139, 30, 247);
+    border: 1px solid rgb(77, 33, 199);
     cursor: pointer;
     height: 28px;
     width: 10px;
@@ -455,7 +460,7 @@ object {}
 
 /* Applies styling to the cells in the leftmost column. */
 #id_table__calculator_table tr td:nth-of-type(1) {
-    color: rgb(139, 30, 247);
+    color: rgb(77, 33, 199);
     text-align: left;
     font-weight: bold;
     font-size: 15px;
