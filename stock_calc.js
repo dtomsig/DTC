@@ -15,6 +15,24 @@ let calc_table_vals =
  [       'Share Count (End of Year)', 1.00]]
 
 
+// Performs a banker's round of a number to a number of decimal points (num_decs). Banker's rounding is used
+// because it removes rounding bias as the calculator rounds values. Javascript's default Math.Round() function rounds
+// numbers ending with 0.5 up. This creates bias. Banker's rounding rounds numbers ending with 0.5 to the nearest
+// even number. Values are rounded when data is transferred from HTML to the calculator and when values are recomputed
+// after data entry in HTML.
+// Due to Javascript's number data type, bankers_round(3.000, 2) returns the value 3. However, bankers_round(3.149, 2)
+// returns the value 3.15.
+function bankers_round(num, num_decs)
+{
+    let x = num * Math.pow(10, num_decs);
+    let r = Math.round(x);
+    let br = (((((x>0)?x:(-x))%1)===0.5)?(((0===(r%2)))?r:(r-1)):r);
+    return br / Math.pow(10, num_decs);
+}
+
+
+// Clears all fields of the calculator and resets the marginal tax rate, terminal growth rate, and equity capital
+// opportunity cost fields to their default values.
 function clear_calc()
 {
     // 1. Reset the control panel's values to their default states.
@@ -63,7 +81,7 @@ function format_calc_fields()
     // 1. Format the <input> elements inside of the calculator control panel.
     for(let i = 0; i < ctrl_children.length; i++)
     {
-        // Skips the slider inside the calculator control panel. Only select the three <input> elements of type text 
+        // Skips the slider inside the calculator control panel. Only select the three <input> elements of type text
         // (marginal tax rate entry, terminal growth rate entry, and equity capital opportunity cost entry) .
         if(ctrl_children[i].tagName == 'INPUT' && ctrl_children[i].getAttribute('type') == 'text')
         {
@@ -103,7 +121,7 @@ function format_calc_fields()
 }
 
 
-// Accepts a string. It will remove any non-numerical characters from the string other than a negative sign or a 
+// Accepts a string. It will remove any non-numerical characters from the string other than a negative sign or a
 // period character. The function will add commas in the whole number portion of the string.
 
 // The mode must be input as well. A mode of "percent" will add a percent sign to the string. A mode of "number" will
@@ -131,7 +149,7 @@ function format_str_numerical(str, mode)
 }
 
 
-// Returns a number for a given string. The function filters out any non-numeric characters but will allow  the '.' 
+// Returns a number for a given string. The function filters out any non-numeric characters but will allow the '.'
 // character. Returns NaN if the string cannot be represented as a number after filtering.
 function get_float_from_str(str)
 {
@@ -139,11 +157,11 @@ function get_float_from_str(str)
 }
 
 
-// Initializes the calculator DOM elements. This function is called when the onload event occurs for the <body>
+// Initializes the HTML calculator's DOM elements. This function is called when the onload event occurs for the <body>
 // element.
 function init_calc_page()
 {
-    // This will set the columns to hidden based on the value of the number of years slider (id = id_input__slider) 
+    // This will set the columns to hidden based on the value of the number of years slider (id = id_input__slider)
     // when the document is loaded. The slider's default value is 7. The hidden attribute is already applied so that
     // seven years (Year 1 - Year 6) will appear on start up. This is redundant but is called to ensure that the inital
     // number of years matches the value in the number of years slider.
@@ -153,8 +171,8 @@ function init_calc_page()
 }
 
 
-// Recomputes revenue growth, net income, book value, and stock price and stores values in internal storage. Rounds
-// any computed values to two decimal points.
+// Recomputes revenue growth, net income, book value, and stock price and stores values in internal storage. Rounds any
+// computed values to two decimal points.
 function recompute_model()
 {
     let new_val = 0.00;
@@ -180,22 +198,22 @@ function recompute_model()
     for(let i = 2; i < row_len; i++)
     {
         new_val = rev_row[i - 1] + Math.abs(rev_row[i-1]) * (rev_growth_row[i]/100);
-        rev_row[i] = Math.round(new_val * 100)/100;
+        rev_row[i] = bankers_round(new_val, 2);
     }
 
-    // 2. Compute net income for each year. 
+    // 2. Compute net income for each year.
     for(let i = 1; i < row_len; i++)
     {
         new_val = (1 - marg_tax_rate/100) *
                   (rev_row[i] * (gross_marg_row[i]/100) - op_exp_row[i] - int_exp_row[i] - oth_exp_row[i]);
-        net_inc_row[i] = Math.round(new_val * 100)/100;
+        net_inc_row[i] = bankers_round(new_val, 2)
     }
 
     // 3. Compute book value for each year.
     for(let i = 2; i < row_len; i++)
     {
         new_val = net_inc_row[i - 1] + book_val_row[i - 1];
-        book_val_row[i] = Math.round(new_val * 100)/100;
+        book_val_row[i] = bankers_round(new_val, 2);
     }
 
     // 4. Transfer the recomputed rows back to internal storage.
@@ -203,13 +221,13 @@ function recompute_model()
     calc_table_vals[7] = net_inc_row;
     calc_table_vals[8] = book_val_row;
 
-    // 5. Compute stock price and store in internal storage. Only compute up to the amount of years being displayed 
+    // 5. Compute stock price and store in internal storage. Only compute up to the amount of years being displayed
     // (num_years).
     for(let i = 2; i < num_years + 2; i++)
     {
         let resid_income = (net_inc_row[i] - book_val_row[i - 1] * (equity_ror/100));
         discounted_residuals_ttl += resid_income / (Math.pow(1 + equity_ror/100, i - 1));
-        
+
         // Terminal value is added for the last year in the model.
         if(i == num_years + 1)
         {
@@ -218,9 +236,9 @@ function recompute_model()
         }
     }
 
-    // 6. The total discounted residual value is added to initial book value. (See wikipedai article on 
+    // 6. The total discounted residual value is added to initial book value. (See wikipedai article on
     // "Residual Income Valuation". Store the stock price.
-    stock_price = (book_val_row[1] + discounted_residuals_ttl)/num_shares;
+    stock_price = bankers_round((book_val_row[1] + discounted_residuals_ttl)/num_shares, 2);
 }
 
 
@@ -249,8 +267,8 @@ function resize_calc_table()
     num_years = parseInt(document.getElementById('id_input__slider').value);
 
     // 'idx_hidden' is the beginning index for all rows where the table should not be displayed.
-    // For row ['Year', 'Current Year', 'Year 1', 'Year 2', 'Year 3', 'Year 4', 'Year 5', 'Year 6', 'Year 7'], if 
-    // num_years is 1, then everything after 'Year 1' is be hidden. 'Year 1' would still be displayed'. Recall that 
+    // For row ['Year', 'Current Year', 'Year 1', 'Year 2', 'Year 3', 'Year 4', 'Year 5', 'Year 6', 'Year 7'], if
+    // num_years is 1, then everything after 'Year 1' is be hidden. 'Year 1' would still be displayed'. Recall that
     // num_years is the number of years that is being modeled beyond the current year.
     let idx_hidden = 2 + num_years;
     let rows = document.getElementById('id_table__calculator_table').rows;
@@ -337,9 +355,10 @@ function transfer_html_to_table()
             if(isNaN(float_value))
                 calc_table_vals[i][j] = 0.00;
             else
-            // Rounds to the nearest hundredth place. If float_value = 3, the table will store a number type with its
-            // value set to 3. JavaScript represents the number 3.00 as a number type with value 3.
-                calc_table_vals[i][j] = Math.round(float_value * 100)/100;
+                // Rounds to the nearest hundredth place using banker's rounding. If float_value = 3, the table will
+                // store a number type with its value set to 3. JavaScript represents the number 3.00 as a number type
+                // with value 3.
+                calc_table_vals[i][j] = bankers_round(float_value, 2)
         }
     }
 }
@@ -349,9 +368,11 @@ function transfer_html_to_table()
 function transfer_price_to_html()
 {
     // Ensures that numerical values are outputted with 2 decimal values. This command will round the stock price to
-    // nearest hundredth. For example, 0.005 rounds to 0.01. If the stock price is represented as a number such as 3,
-    // the function will transfer the string "3.00". This is done by specifying the minimum number of fraction digits.
-    // The number representation of 3.00 in JavaScript is 3. This ensuresthat the HTML displays "3.00" and not "3".
+    // nearest hundredth. For example, 0.005 rounds to 0.01. However, rounding is not expected to occur because the
+    // stock price is already rounded in the recompute_model() function. If the stock price is represented as a number
+    // such as 3, the function will transfer the string "3.00". This is done by specifying the minimum number of
+    // fraction digits. The number representation of 3.00 in JavaScript is 3. This ensuresthat the HTML displays "3.00"
+    // and not "3".
     let rounded_price = stock_price.toLocaleString("en", {useGrouping: false, minimumFractionDigits: 2, 
                                                           maximumFractionDigits: 2});
     document.getElementById('id_output__predicted_stock_price').value = rounded_price;
@@ -359,7 +380,7 @@ function transfer_price_to_html()
 
 
 // This function transfers information from calc_table_vals to the HTML of the calculator table. This function does
-// not apply any formatting. The format_calc_fields() function should  be called after this function to format the 
+// not apply any formatting. The format_calc_fields() function should  be called after this function to format the
 // calculator's numerical fields.
 function transfer_table_to_html()
 {
@@ -398,11 +419,11 @@ function transfer_table_to_html()
 
 
 // This function accepts an event. In this project, the event is an InputEvent originating from an <input> element in an
-// HTML document. The <input> element must have the type attribute set to text. The <input> element's oninput attribute 
+// HTML document. The <input> element must have the type attribute set to text. The <input> element's oninput attribute
 // is set to call this function.
 //
 // This function will set the value of the triggering <input> element to remove any character that isn't numeric
-// ('0' through '9') or a single '.' character. This will make it so that user's input into <input> elements are 
+// ('0' through '9') or a single '.' character. This will make it so that user's input into <input> elements are
 // formatted as a number. Any additional '.' characters will be removed beyond the first one.
 //
 // The main purpose of this function is to format input while the user is entering values in the calculator. This will
@@ -410,13 +431,13 @@ function transfer_table_to_html()
 function verify_numerical_while_inputting(event)
 {
     let targ_element = event.target;
-    // orig_value should be a string since this function must be called by an element with its "type" attribute set to 
+    // orig_value should be a string since this function must be called by an element with its "type" attribute set to
     // text.
     let orig_value = targ_element.value;
     let sanitized_value = '', final_value = '';
     let has_period_char = false;
 
-    // 1. Only include numeric characters from '0' to '9' and a single '.'. 
+    // 1. Only include numeric characters from '0' to '9' and a single '.'.
     for(let i = 0; i < orig_value.length; i++)
     {
         let char_code = orig_value.charCodeAt(i);
