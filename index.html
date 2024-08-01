@@ -37,8 +37,7 @@
 
                 <article class = "cl_style__content_pane_general_w_1200" id = "id_article__calculator"
                          onfocusin = "remove_empty_char_on_focus(event);"
-                         onfocusout = "transfer_html_to_table(); recompute_model(); transfer_table_to_html();
-                                       format_calc_fields();"
+                         onfocusout = "transfer_html_to_model(); recompute_model(); transfer_model_to_html();"
                          oninput = "verify_numerical_while_inputting(event);">
                     <h2> Calculator </h2>
 
@@ -405,13 +404,17 @@
                         </output>
 
                          <fieldset id = "id_fieldset__calculator_control_panel_buttons">
-                            <button class = "cl_style__button_black" onclick = "recompute_model();
-                                                                               transfer_price_to_html();
-                                                                               format_calc_fields();"
+                            <button class = "cl_style__button_black" onclick = "transfer_html_to_model();
+                                                                                recompute_model();
+                                                                                set_stock_price_upd_flag_true();
+                                                                                transfer_model_to_html();"
                                     type = "button">
                                 Calculate
                             </button>
-                            <button class = "cl_style__button_black" onclick = "clear_calc();" type = "button">
+                            <button class = "cl_style__button_black" onclick = "clear_calc();
+                                                                                set_stock_price_upd_flag_true();
+                                                                                transfer_model_to_html();" 
+                                    type = "button">
                                 Clear
                             </button>
                         </fieldset>

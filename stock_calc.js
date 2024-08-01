@@ -1,5 +1,6 @@
 let num_years;
-let stock_price;
+let stock_price = 'Not Calculated';
+let upd_stock_price_flag = false;
 
 let calc_table_vals = 
 [[                                '', 'Current Year', 'Year 1', 'Year 2', 'Year 3', 'Year 4', 'Year 5', 'Year 6',
@@ -12,15 +13,20 @@ let calc_table_vals =
  [                  'Other Expenses', 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00],
  [                      'Net Income', 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00],
  [        'Book Value (End of Year)', 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00],
- [       'Share Count (End of Year)', 1.00]]
+ [       'Share Count (End of Year)', 1.00]];
+
+let calc_ctrl_panel_vals = 
+[[               'Marginal Tax Rate', 15.00],
+ [            'Terminal Growth Rate',  5.00],
+ [ 'Equity Capital Opportunity Cost', 10.00]];
 
 
 // Performs a banker's round of a number to a number of decimal points (num_decs). Banker's rounding is used
-// because it removes rounding bias as the calculator rounds values. Javascript's default Math.Round() function rounds
+// because it removes rounding bias as the calculator rounds values. JavaScript's default Math.Round() function rounds
 // numbers ending with 0.5 up. This creates bias. Banker's rounding rounds numbers ending with 0.5 to the nearest
 // even number. Values are rounded when data is transferred from HTML to the calculator and when values are recomputed
 // after data entry in HTML.
-// Due to Javascript's number data type, bankers_round(3.000, 2) returns the value 3. However, bankers_round(3.149, 2)
+// Due to JavaScript's number data type, bankers_round(3.000, 2) returns the value 3. However, bankers_round(3.149, 2)
 // returns the value 3.15.
 function bankers_round(num, num_decs)
 {
@@ -32,97 +38,41 @@ function bankers_round(num, num_decs)
 
 
 // Clears all fields of the calculator and resets the marginal tax rate, terminal growth rate, and equity capital
-// opportunity cost fields to their default values.
+// opportunity cost fields to their default values (control panel values). The model's stock price is set to 
+// 'Not Calculated'.  transfer_html_to_model() must be called afterwards to push updates to HTML.
 function clear_calc()
 {
     // 1. Reset the control panel's values to their default states.
-    document.getElementById('id_input__marginal_tax_rate').value = '15%';
-    document.getElementById('id_input__terminal_growth_rate').value = '5%';
-    document.getElementById('id_input__equity_capital_opportunity_cost').value = '10%';
+    let calc_ctrl_panel_vals = 
+    [[               'Marginal Tax Rate', 15.00],
+     [            'Terminal Growth Rate',  5.00],
+     [ 'Equity Capital Opportunity Cost', 10.00]];
 
     // 2. Reset the calculator table's values to their default states.
     calc_table_vals = 
     [[                                '', 'Current Year', 'Year 1', 'Year 2', 'Year 3', 'Year 4', 'Year 5', 'Year 6',
                                           'Year 7', 'Year 8', 'Year 9', 'Year 10'],
-    [                         'Revenue', 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00],
-    [                '% Revenue Growth', 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00],
-    [           '% Gross Profit margin', 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00],
-    [              'Operating Expenses', 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00],
-    [               'Interest Expenses', 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00],
-    [                  'Other Expenses', 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00],
-    [                      'Net Income', 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00],
-    [        'Book Value (End of Year)', 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00],
-    [       'Share Count (End of Year)', 1.00]]
+     [                         'Revenue', 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00],
+     [                '% Revenue Growth', 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00],
+     [           '% Gross Profit margin', 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00],
+     [              'Operating Expenses', 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00],
+     [               'Interest Expenses', 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00],
+     [                  'Other Expenses', 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00],
+     [                      'Net Income', 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00],
+     [        'Book Value (End of Year)', 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00],
+     [       'Share Count (End of Year)', 1.00]]
 
-    // 3. Transfer the reset calculator table values to HTML.
-    transfer_table_to_html();
-
-    // 4. Reset stock price on calculator's display.
-    document.getElementById('id_output__predicted_stock_price').value = 'Not Calculated';
+    // 3. Reset stock price on calculator's display.
+    stock_price = 'Not Calculated';
 }
 
 
-// Adds commas and percentage signs to fields inside the calculator that require it. This function is set as the target
-// for the onfocusout event in the calculator's <article> element. The function will format <input> and <td> & <th>
-// elements. This includes elements in both the calculator control panel and the calculator table.
-function format_calc_fields()
-{
-    let ctrl_form = document.getElementById('id_form__calculator_control_panel');
-    let calc_table = document.getElementById('id_table__calculator_table');
-    let stock_price_text = document.getElementById('id_output__predicted_stock_price');
+// Accepts a string. The function will add commas in to the whole number (left of decimal) portion of the string. This
+// groups digits into groups of three. For example, the string '1000' will be converted to '1,000'.
 
-    let rows = document.getElementById('id_table__calculator_table').rows;
-
-    let ctrl_children = ctrl_form.children;
-    let calc_children = calc_table.chidlren;
-    
-    let orig_value = '', final_value = '';
-
-    // 1. Format the <input> elements inside of the calculator control panel.
-    for(let i = 0; i < ctrl_children.length; i++)
-    {
-        // Skips the slider inside the calculator control panel. Only select the three <input> elements of type text
-        // (marginal tax rate entry, terminal growth rate entry, and equity capital opportunity cost entry) .
-        if(ctrl_children[i].tagName == 'INPUT' && ctrl_children[i].getAttribute('type') == 'text')
-        {
-            orig_value = ctrl_children[i].value;
-            final_value = format_str_numerical(orig_value, 'percent');
-            ctrl_children[i].value = final_value;
-        }
-    }
-
-    // 2. Format the <th> and <td> elements inside of the calculator table. Do not include the first row or first column
-    // (from left). These cells do not contain numeirc data that needs to be formatted.
-    for(let i = 1; i < rows.length; i++)
-    {
-        let cur_row = rows[i].cells;
-
-        for(let j = 1; j < cur_row.length; j++)
-        {
-            let cur_cell = cur_row[j];
-
-            orig_value = table_cell_retrieve(cur_cell);
-
-            // Rows with indices 2 and 3 (Revenue Growth % and Gross Margin %) must be displayed as percentages.
-            if(i == 2 || i == 3)
-                final_value = format_str_numerical(orig_value, 'percent');
-            else
-                final_value = format_str_numerical(orig_value, 'number');
-
-            table_cell_store_text(cur_cell, final_value);
-        }
-    }
-
-    // 3. Format the <p> element that stores the stock price.
-    orig_value = document.getElementById('id_output__predicted_stock_price').innerHTML;
-    final_value = format_str_numerical(orig_value, 'number');
-
-    document.getElementById('id_output__predicted_stock_price').innerHTML = final_value;
-}
-
-
-// Accepts a string. It will remove any non-numerical characters from the string other than a negative sign or a
-// period character. The function will add commas in the whole number portion of the string.
+// This function provides no input string format interpretation. It has no input validation and could cause a crash.
+// All strings should be input with a string with a numeric format such as '-1000.9', '2000', '0.39', etc. All other
+// input types result in undefined behavior.
 
 // The mode must be input as well. A mode of "percent" will add a percent sign to the string. A mode of "number" will
 // not add a percent sign. If an incorrect mode is passed, the original string is returned.
@@ -144,13 +94,14 @@ function format_str_numerical(str, mode)
         if(str.charCodeAt(str.length - 1) != 37 && str != '-')     // Char code for '%'.
             formatted_str = formatted_str + '%';
     }
- 
+
     return formatted_str;
 }
 
 
-// Returns a number for a given string. The function filters out any non-numeric characters but will allow the '.'
-// character. Returns NaN if the string cannot be represented as a number after filtering.
+// Returns a number for a given string. The function first filters out any non-numeric characters but will match the '.' 
+// and '-' characters. This string is then passed to attempted to be parsed by the parseFloat() function. Returns NaN if
+// the resulting string cannot be parsed as a number.
 function get_float_from_str(str)
 {
     return parseFloat(str.replace(/[^\d.-]/g, ''));
@@ -166,8 +117,7 @@ function init_calc_page()
     // seven years (Year 1 - Year 6) will appear on start up. This is redundant but is called to ensure that the inital
     // number of years matches the value in the number of years slider.
     resize_calc_table();
-    transfer_table_to_html();
-    format_calc_fields();
+    transfer_model_to_html();
 }
 
 
@@ -175,7 +125,7 @@ function init_calc_page()
 // computed values to two decimal points.
 function recompute_model()
 {
-    let new_val = 0.00;
+    let new_val             = 0.00;
     let rev_row             = calc_table_vals[1];
     let rev_growth_row      = calc_table_vals[2];
     let gross_marg_row      = calc_table_vals[3];
@@ -185,11 +135,10 @@ function recompute_model()
     let net_inc_row         = calc_table_vals[7];
     let book_val_row        = calc_table_vals[8];
 
-    let equity_ror          = get_float_from_str(document.getElementById('id_input__equity_capital_opportunity_cost')
-                                                                          .value);
-    let marg_tax_rate       = get_float_from_str(document.getElementById('id_input__marginal_tax_rate').value);
-    let term_growth_rate    = get_float_from_str(document.getElementById('id_input__terminal_growth_rate').value);
-    let num_shares          = get_float_from_str(document.getElementById('id_input__num_shares_outstanding').value);
+    let marg_tax_rate       = calc_ctrl_panel_vals[0][1];
+    let term_growth_rate    = calc_ctrl_panel_vals[1][1];
+    let equity_ror          = calc_ctrl_panel_vals[2][1];
+    let num_shares          = calc_table_vals[9][1];
 
     let discounted_residuals_ttl = 0, terminal_residual = 0;
     let row_len = rev_row.length;
@@ -290,6 +239,15 @@ function resize_calc_table()
 }
 
 
+// This function is called when the Calculate or Clear button is pressed. It allows the stock price to be updated when
+// the model is transferred to HTML. These two buttons call the transfer_model_to_html() function. On the next transfer,
+// the flag will be set to false. Either button must be pressed again to allow further stock price transfers to HTML.
+function set_stock_price_upd_flag_true()
+{
+    upd_stock_price_flag = true;
+}
+
+
 // Retrieves text information from the <td> and <td> table cell elements of the calculator table.
 function table_cell_retrieve(cell)
 {
@@ -325,12 +283,19 @@ function table_cell_store_text(cell, str)
 
 
 // This function transfers information from the calculator table in HTML to internal storage called "calc_table_vals".
-// Also, rounds any input from the HTML input fields to two decimal places.
-function transfer_html_to_table()
-{
-    let rows = document.getElementById('id_table__calculator_table').rows;
+// This function transfers information from the control panel in HTML to internal storage called "calc_ctrl_panel_vals".
+// Rounds any input from the HTML input fields to two decimal places.
 
-    // Start at i = 1 and j = 1 to start at data cells. Notice that column with index = 0 and row with index = 0, do
+// Adds commas and percentage signs to fields inside the calculator that require it. This function is set as one of the
+// targets for the onfocusout event in the calculator's <article> element. The function will format <input> and <td> &
+// <th> elements. This includes elements in both the calculator control panel and the calculator table.
+function transfer_html_to_model()
+{
+    let rows = document.getElementById('id_table__calculator_table').rows, element_ids = null;
+    
+    // 1. Transfer input data from the HTML table with id "id_table__calculator_table" to the internal storage.
+    //
+    // Start at i = 1 and j = 1 to start at data cells. Notice that columns with index = 0 and row with index = 0, do
     // not contain any input fields. See "id_table__calculator_table" for the HTML definition of the calculator table.
     for(let i = 1; i < rows.length; i++)
     {
@@ -345,10 +310,10 @@ function transfer_html_to_table()
             str_value = table_cell_retrieve(cur_cell);
 
             // Remove any non-numeric characters and period characters. If there is more than one period character,
-            // parseFloat will return NaN and the model will set the value to 0. Since verify_numerical() removes
-            // extra decimal points on input, extra decimal points aren't expected.
-            sanitized_value = get_float_from_str(str_value);
-            float_value = parseFloat(sanitized_value);
+            // parseFloat will return NaN and the model will set the value to 0. Since 
+            // verify_numerical_while_inputting() removes extra decimal points on input, extra decimal points aren't
+            // expected.
+            float_value = get_float_from_str(str_value);
 
             // isNaN() will return true if a cell contains a value such as '-' or if it otherwise can't be processed
             // as a float. Values that can't be processed are interpretted as being 0.
@@ -361,35 +326,32 @@ function transfer_html_to_table()
                 calc_table_vals[i][j] = bankers_round(float_value, 2)
         }
     }
+
+    // 2. Transfers input data from the HTML fieldset with id "id_form__calculator_control_panel", the calculator
+    // control panel, to internal storage.
+    element_ids = ['id_input__marginal_tax_rate', 'id_input__terminal_growth_rate',
+                   'id_input__equity_capital_opportunity_cost'];
+
+    for(let i = 0; i < 3; i++)
+    {
+        float_value = get_float_from_str(document.getElementById(element_ids[i]).value);
+        if(isNaN(float_value))
+            float_value = 0.00;
+
+        calc_ctrl_panel_vals[i][1] = bankers_round(float_value, 0);
+    }
 }
 
 
-// Stores the stock price to the stock price <output> element.
-function transfer_price_to_html()
+// This function transfers information from internal storage called "calc_table_vals" to the HTML of the calculator
+// table. This function transfers information from internal storage called "calc_ctrl_panel_vals" to the HTMl of the
+// calculator control panel. Lastly, the function transfers the model's predicted stock price to HTML.
+function transfer_model_to_html()
 {
-    // Ensures that numerical values are outputted with 2 decimal values. This command will round the stock price to
-    // nearest hundredth. For example, 0.005 rounds to 0.01. However, rounding is not expected to occur because the
-    // stock price is already rounded in the recompute_model() function. If the stock price is represented as a number
-    // such as 3, the function will transfer the string "3.00". This is done by specifying the minimum number of
-    // fraction digits. The number representation of 3.00 in JavaScript is 3. This ensuresthat the HTML displays "3.00"
-    // and not "3".
-    let rounded_price = stock_price.toLocaleString("en", {useGrouping: false, minimumFractionDigits: 2, 
-                                                          maximumFractionDigits: 2});
-    document.getElementById('id_output__predicted_stock_price').value = rounded_price;
-}
+    let final_value = '', orig_value = '', trunc_value = '';
+    let rows = document.getElementById('id_table__calculator_table').rows, element_ids = null;
 
-
-// This function transfers information from calc_table_vals to the HTML of the calculator table. This function does
-// not apply any formatting. The format_calc_fields() function should  be called after this function to format the
-// calculator's numerical fields.
-function transfer_table_to_html()
-{
-    let calc_table = document.getElementById('id_table__calculator_table');
-    let calc_children = calc_table.getElementsByTagName("*");
-    let str_value = '';
-    let rows = document.getElementById('id_table__calculator_table').rows;
-
-    // Iterate through the cells in each row. If the cell's index is greater than idx_hidden, do not display that cell.
+    // 1. Transfer values from calc_table_vals, the model's representation of the calculator table, to HTML.
     for(let i = 0; i < rows.length; i++)
     {
         let cur_row = rows[i].cells;
@@ -397,23 +359,86 @@ function transfer_table_to_html()
         for(let j = 0; j < cur_row.length; j++)
         {
             let cur_cell = cur_row[j];
+            
+            // Retrieve all values from the model's calculator table as strings. Some entries such as those in the first 
+            // row or leftmost column are already strings. Others, such as elements in the table, are numbers.
+            // All values are initially converted to strings to make the code easier to understand.
+            orig_value = calc_table_vals[i][j].toString();
 
-            if(calc_table_vals[i][j] == '0.00')
-                str_value = '-';
-            else
+            if(orig_value === '0')
+                final_value = '-';
+            // Corresponds to values not in the leftmost column or uppermost row. They are JavaScript numbers in 
+            // internal storage and should be formatted as numbers.
+            else if(i > 0 && j > 0)
             {
                 // Ensures that numerical values are outputted with 2 decimal places shown The maximum fraction digit
                 // number does not need to be specified because table values are rounded to two decimal places on
-                // input by transfer_html_to_table().
+                // input by transfer_html_to_model().
 
-                // In transfer_html_to_table(), values are rounded to two decimal places. However, since JavaScript
+                // In transfer_html_to_model(), values are rounded to two decimal places. However, since JavaScript
                 // represents numbers such as 3.00 as number types with value 3, it is necessary to ensure that the
                 // minimum number of fraction digits is 2. Otherwise, the table would display the value "3" and not
                 // "3.00".
-                str_value = calc_table_vals[i][j].toLocaleString("en", {useGrouping: false, minimumFractionDigits: 2});
+
+                let trunc_value = parseFloat(orig_value).toLocaleString("en", {minimumFractionDigits: 2});
+
+                // Rows with indices 2 and 3 (Revenue Growth % and Gross Margin %) must be displayed as percentages.
+                if(i == 2 || i == 3)
+                    final_value = format_str_numerical(trunc_value, 'percent');
+                else
+                    final_value = format_str_numerical(trunc_value, 'number');
             }
-            table_cell_store_text(cur_cell, str_value);
+            // Values in the leftmost or uppermost row such as strings like 'Revenue' are copied directly to HTML in the
+            // statement following this branch. final_value can be set to the original_value that was retrieved from
+            // internal storage.
+            else
+                final_value = orig_value;
+            table_cell_store_text(cur_cell, final_value);
         }
+    }
+
+    // 2. Transfer values from calc_ctrl_panel_vals, the model's representation of the calculator control panel, to
+    // HTML.
+    element_ids = ['id_input__marginal_tax_rate', 'id_input__terminal_growth_rate',
+                   'id_input__equity_capital_opportunity_cost'];
+
+    for(let i = 0; i < 3; i++)
+    {
+        // orig_value will always be a number. toLocaleString() will later convert it to a string.
+        orig_value = calc_ctrl_panel_vals[i][1];
+        trunc_value = orig_value.toLocaleString("en", {minimumFractionDigits: 0});
+        final_value = format_str_numerical(trunc_value, 'percent');
+
+        document.getElementById(element_ids[i]).value = final_value;
+    }
+   
+    // 3. Transfer the predicted stock price to the stock price <output> element in HTML.
+    orig_value = stock_price.toString();
+
+    // The stock price can either be a number or the string 'Not Calculated'. If it is a number, it must be formatted.
+    if(orig_value === 'Not Calculated')
+    {
+        final_value = orig_value;
+    }
+    else
+    {
+        // Ensures that numerical values are outputted with two decimal values. This command will round the stock price
+        // to the nearest hundredth. For example, 0.005 rounds to 0.01. However, rounding is not expected to occur 
+        // because the stock price is already rounded in the recompute_model() function. If the stock price is
+        // represented as a number such as 3, the function will transfer the string "3.00". This is done by specifying
+        // the minimum number of fraction digits. The number representation of 3.00 in JavaScript is 3. This
+        // ensures that the HTML displays "3.00" and not "3".
+        trunc_value = parseFloat(orig_value).toLocaleString("en", {minimumFractionDigits: 2});
+        final_value = format_str_numerical(trunc_value, 'number');
+    }
+    
+    // Only transfer the price to HTML after the Calculate button or Clear button has been pressed. upd_stock_price_flag
+    // is the variable that isset to true when this has occurred. Later, set the variable to false so the price will
+    // onlytransfer when calculate has been pressed.
+    if(upd_stock_price_flag === true)
+    {
+        upd_stock_price_flag = false;
+        document.getElementById('id_output__predicted_stock_price').value = final_value;
     }
 }
 
