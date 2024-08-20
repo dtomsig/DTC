@@ -303,13 +303,13 @@ object {}
     text-align: right;
 }
 
-/* <label> for "id_input__marginal_tax_rate" */ 
+/* <label> for "id_input__effective_tax_rate" */ 
 #id_form__calculator_control_panel :nth-child(1){
     grid-column: 1 / span 1;
     grid-row: 1;
 }
 
-/* <input> "id_input__marginal_tax_rate" */
+/* <input> "id_input__effective_tax_rate" */
 #id_form__calculator_control_panel :nth-child(2){
     grid-column: 2 / span 1;
     grid-row: 1;

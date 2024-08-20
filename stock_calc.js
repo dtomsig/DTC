@@ -16,16 +16,16 @@ let calc_table_vals =
  [       'Share Count (End of Year)', 1.00]];
 
 let calc_ctrl_panel_vals = 
-[[               'Marginal Tax Rate', 15.00],
+[[              'Effective Tax Rate', 19.00],
  [            'Terminal Growth Rate',  5.00],
  [ 'Equity Capital Opportunity Cost', 10.00]];
 
 
-// Performs a banker's round of a number to a number of decimal points (num_decs). Banker's rounding is used
-// because it removes rounding bias as the calculator rounds values. JavaScript's default Math.Round() function rounds
-// numbers ending with 0.5 up. This creates bias. Banker's rounding rounds numbers ending with 0.5 to the nearest
-// even number. Values are rounded when data is transferred from HTML to the calculator and when values are recomputed
-// after data entry in HTML.
+// Performs a banker's round of a number to a number of decimal points (num_decs). Banker's rounding is used because
+// it removes rounding bias as the calculator rounds values. JavaScript's default Math.Round() function rounds numbers
+// ending with 0.5 up. This creates bias. Banker's rounding rounds numbers ending with 0.5 to the nearest  even number.
+// Values are rounded when data is transferred from HTML to the calculator and when values are recomputed after data
+// entry in HTML.
 // Due to JavaScript's number data type, bankers_round(3.000, 2) returns the value 3. However, bankers_round(3.149, 2)
 // returns the value 3.15.
 function bankers_round(num, num_decs)
@@ -37,14 +37,14 @@ function bankers_round(num, num_decs)
 }
 
 
-// Clears all fields of the calculator and resets the marginal tax rate, terminal growth rate, and equity capital
-// opportunity cost fields to their default values (control panel values). The model's stock price is set to 
+// Clears all fields of the calculator and resets the effective tax rate, terminal growth rate, and equity capital
+// opportunity cost fields to their default values (control panel values). The model's stock price is set to
 // 'Not Calculated'.  transfer_html_to_model() must be called afterwards to push updates to HTML.
 function clear_calc()
 {
     // 1. Reset the control panel's values to their default states.
     let calc_ctrl_panel_vals = 
-    [[               'Marginal Tax Rate', 15.00],
+    [[              'Effective Tax Rate', 19.00],
      [            'Terminal Growth Rate',  5.00],
      [ 'Equity Capital Opportunity Cost', 10.00]];
 
@@ -135,7 +135,7 @@ function recompute_model()
     let net_inc_row         = calc_table_vals[7];
     let book_val_row        = calc_table_vals[8];
 
-    let marg_tax_rate       = calc_ctrl_panel_vals[0][1];
+    let eff_tax_rate        = calc_ctrl_panel_vals[0][1];
     let term_growth_rate    = calc_ctrl_panel_vals[1][1];
     let equity_ror          = calc_ctrl_panel_vals[2][1];
     let num_shares          = calc_table_vals[9][1];
@@ -153,7 +153,7 @@ function recompute_model()
     // 2. Compute net income for each year.
     for(let i = 1; i < row_len; i++)
     {
-        new_val = (1 - marg_tax_rate/100) *
+        new_val = (1 - eff_tax_rate/100) *
                   (rev_row[i] * (gross_marg_row[i]/100) - op_exp_row[i] - int_exp_row[i] - oth_exp_row[i]);
         net_inc_row[i] = bankers_round(new_val, 2)
     }
@@ -329,7 +329,7 @@ function transfer_html_to_model()
 
     // 2. Transfers input data from the HTML fieldset with id "id_form__calculator_control_panel", the calculator
     // control panel, to internal storage.
-    element_ids = ['id_input__marginal_tax_rate', 'id_input__terminal_growth_rate',
+    element_ids = ['id_input__effective_tax_rate', 'id_input__terminal_growth_rate',
                    'id_input__equity_capital_opportunity_cost'];
 
     for(let i = 0; i < 3; i++)
@@ -399,7 +399,7 @@ function transfer_model_to_html()
 
     // 2. Transfer values from calc_ctrl_panel_vals, the model's representation of the calculator control panel, to
     // HTML.
-    element_ids = ['id_input__marginal_tax_rate', 'id_input__terminal_growth_rate',
+    element_ids = ['id_input__effective_tax_rate', 'id_input__terminal_growth_rate',
                    'id_input__equity_capital_opportunity_cost'];
 
     for(let i = 0; i < 3; i++)
