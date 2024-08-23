@@ -37,7 +37,8 @@
 
                 <article class = "cl_style__content_pane_general_w_1200" id = "id_article__calculator"
                          onfocusin = "remove_empty_char_on_focus(event);"
-                         onfocusout = "transfer_html_to_model(); recompute_model(); transfer_model_to_html();"
+                         onfocusout = "transfer_html_to_model(); recompute_model(); verify_model(); 
+                                       transfer_model_to_html();"
                          oninput = "verify_numerical_while_inputting(event);">
                     <h2> Calculator </h2>
 
@@ -374,7 +375,6 @@
                             </td>
                         </tr>
                     </table>
-   
                     <input autocomplete = "off" id = "id_input__slider" min = "1" max = "10" step = "1" 
                            onchange = "resize_calc_table();" type = "range" value = "10">
                            
@@ -406,6 +406,7 @@
                          <fieldset id = "id_fieldset__calculator_control_panel_buttons">
                             <button class = "cl_style__button_black" onclick = "transfer_html_to_model();
                                                                                 recompute_model();
+                                                                                verify_model();
                                                                                 set_stock_price_upd_flag_true();
                                                                                 transfer_model_to_html();"
                                     type = "button">
@@ -464,14 +465,14 @@
                         <strong>Competitor PE Ratio</strong> - A competitor's PE ratio. Optional as it does not affect
                         the predicted stock price.
                         <br>
-                        <strong>Effective Tax Rate</strong> - Company's effective tax rate. 19 is the default value.
+                        <strong>Effective Tax Rate</strong> - Company's effective tax rate. 19% is the default value.
                         Effective tax rate can vary widely from company to company.
                         <br>
                         <strong>Equity Capital Opportunity Cost</strong> - Desired rate of return on investment. 10% is
                         the default value because it is the average index stock market return.
                         <br>
                         <strong>Terminal Growth Rate</strong> - Terminal growth rate of business at Year 10. 5% is the
-                        default.
+                        default value.
                     </p>
 
                     <a href = "./Residual Income Valuation.xlsx" id = "id_anchor__excel_download">

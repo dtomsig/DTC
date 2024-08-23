@@ -43,7 +43,7 @@ function bankers_round(num, num_decs)
 function clear_calc()
 {
     // 1. Reset the control panel's values to their default states.
-    let calc_ctrl_panel_vals = 
+    calc_ctrl_panel_vals = 
     [[              'Effective Tax Rate', 19.00],
      [            'Terminal Growth Rate',  5.00],
      [ 'Equity Capital Opportunity Cost', 10.00]];
@@ -185,8 +185,8 @@ function recompute_model()
         }
     }
 
-    // 6. The total discounted residual value is added to initial book value. (See wikipedai article on
-    // "Residual Income Valuation". Store the stock price.
+    // 6. The total discounted residual value is added to initial book value. (See Wikipedia article on
+    // "Residual Income Valuation"). Store the stock price.
     stock_price = bankers_round((book_val_row[1] + discounted_residuals_ttl)/num_shares, 2);
 }
 
@@ -239,9 +239,10 @@ function resize_calc_table()
 }
 
 
-// This function is called when the Calculate or Clear button is pressed. It allows the stock price to be updated when
-// the model is transferred to HTML. These two buttons call the transfer_model_to_html() function. On the next transfer,
-// the flag will be set to false. Either button must be pressed again to allow further stock price transfers to HTML.
+// This function is called when the Calculate or Clear button is pressed. It is also called by verify_model() if there
+// an input our output value exceeds the limit of 9,999,999.99. It allows the stock price to be updated when the model
+// is transferred to HTML. These two buttons call the transfer_model_to_html() function. On the next transfer, the flag
+// will be set to false. Either button must be pressed again to allow further stock price transfers to HTML.
 function set_stock_price_upd_flag_true()
 {
     upd_stock_price_flag = true;
@@ -306,7 +307,7 @@ function transfer_html_to_model()
         for(let j = 1; j < cur_row.length; j++)
         {
             let cur_cell = cur_row[j];
-            
+
             str_value = table_cell_retrieve(cur_cell);
 
             // Remove any non-numeric characters and period characters. If there is more than one period character,
@@ -323,7 +324,7 @@ function transfer_html_to_model()
                 // Rounds to the nearest hundredth place using banker's rounding. If float_value = 3, the table will
                 // store a number type with its value set to 3. JavaScript represents the number 3.00 as a number type
                 // with value 3.
-                calc_table_vals[i][j] = bankers_round(float_value, 2)
+                calc_table_vals[i][j] = bankers_round(float_value, 2);
         }
     }
 
@@ -379,7 +380,6 @@ function transfer_model_to_html()
                 // represents numbers such as 3.00 as number types with value 3, it is necessary to ensure that the
                 // minimum number of fraction digits is 2. Otherwise, the table would display the value "3" and not
                 // "3.00".
-
                 let trunc_value = parseFloat(orig_value).toLocaleString("en", {minimumFractionDigits: 2});
 
                 // Rows with indices 2 and 3 (Revenue Growth % and Gross Margin %) must be displayed as percentages.
@@ -415,8 +415,9 @@ function transfer_model_to_html()
     // 3. Transfer the predicted stock price to the stock price <output> element in HTML.
     orig_value = stock_price.toString();
 
-    // The stock price can either be a number or the string 'Not Calculated'. If it is a number, it must be formatted.
-    if(orig_value === 'Not Calculated')
+    // The stock price can either be a number, the string 'Not Calculated', or the string 
+    // 'Input or Output Field Exceeded 9,999,999.99'. If it is a number, it must be formatted.
+    if(orig_value === 'Not Calculated' || orig_value === 'Input or Output Field Exceeded 9,999,999.99')
     {
         final_value = orig_value;
     }
@@ -439,6 +440,45 @@ function transfer_model_to_html()
     {
         upd_stock_price_flag = false;
         document.getElementById('id_output__predicted_stock_price').value = final_value;
+    }
+}
+
+
+// This function should be called after recompute_model(). If any component of the model has a value over 9,999,999.99,
+// reset  the model and set the stock price to the string 'Input or Output Field Exceeded 9,999,999.99'. The program is
+// designed to output the stock_price variable regardless if it's a string or a number.
+function verify_model()
+{
+    let row_len = calc_table_vals[0].length, col_len = calc_table_vals.length;
+    let excd_limit_flag     = false;
+
+    if(stock_price > 9999999.99)
+        excd_limit_flag = true;
+
+    // Only the numbers in calc_table_vals (indices greater than or equal to 1) are tested.
+    for(let i = 1; i < col_len; i++)
+    {
+        for(let j = 1; j < row_len; j++)
+        {
+            if(calc_table_vals[i][j] > 9999999.99)
+                excd_limit_flag = true;
+        }
+    }
+
+    // Also test the values in the calculator control panel to see if they are over 9,999,999.99
+    for(let i = 0; i < 3; i++)
+    {
+        if(calc_ctrl_panel_vals[0][i] > 9999999.99)
+            excd_limit_flag = true;
+    }
+
+    if(excd_limit_flag)
+    {
+        // Clearing the calculator sets stock_price to 'Not Calculated'. That is why it is called before changing
+        // the value of stock_price.
+        clear_calc();
+        set_stock_price_upd_flag_true();
+        stock_price = 'Input or Output Field Exceeded 9,999,999.99';
     }
 }
 

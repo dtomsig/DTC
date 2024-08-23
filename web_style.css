@@ -411,7 +411,6 @@ object {}
     cursor: pointer;
     height: 28px;
     width: 10px;
-
 }
 
 #id_section__calculators {
@@ -432,7 +431,7 @@ object {}
     margin-bottom: 100px;
 }
 
-/* white-space is set to normal. This is because the cl_style__content_pane_general_w_1200 sets the white-space to 
+/* white-space is set to normal. This is because the cl_style__content_pane_general_w_1200 sets the white-space to
    nowrap and gets inherited by the table. The intended behavior is white-space set to normal. */
 #id_table__calculator_table {
     display: inline-block;
@@ -443,10 +442,6 @@ object {}
     white-space: normal;
 }
 
-#id_table__calculator_table input {
-    width: 75px;
-}
-
 /* Sets the border and width of the leftmost column. */
 #id_table__calculator_table colgroup col:nth-of-type(1) {
     border-right: 1px black solid;
@@ -455,6 +450,14 @@ object {}
 
 /* Sets the width of the all other columns to the right of the leftmost one (not including leftmost column). */
 #id_table__calculator_table colgroup col:nth-of-type(2)  {
+    width: 75px;
+}
+
+/* The rule below appears to work if "td" is removed. The <td> elements will be 75 pixels wide, even if the size is not
+   specified . This is possibly due to a CSS default. However, I included <td> in the selector because I believe it's
+   most correct. I don't have any CSS code to prevent overflowing of the <td> elements. The JavaScript program,
+   stock_calc.js, prevents fields from overflowing by not displaying values over 9,999,999.99. */
+#id_table__calculator_table input, td {
     width: 75px;
 }
 
