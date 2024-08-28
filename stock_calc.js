@@ -18,7 +18,8 @@ let calc_table_vals =
 let calc_ctrl_panel_vals = 
 [[              'Effective Tax Rate', 19.00],
  [            'Terminal Growth Rate',  5.00],
- [ 'Equity Capital Opportunity Cost', 10.00]];
+ [ 'Equity Capital Opportunity Cost', 10.00],
+ [   'Annual Augmented Payout Ratio',  0.00]];
 
 
 // Performs a banker's round of a number to a number of decimal points (num_decs). Banker's rounding is used because
@@ -37,16 +38,18 @@ function bankers_round(num, num_decs)
 }
 
 
-// Clears all fields of the calculator and resets the effective tax rate, terminal growth rate, and equity capital
-// opportunity cost fields to their default values (control panel values). The model's stock price is set to
-// 'Not Calculated'.  transfer_html_to_model() must be called afterwards to push updates to HTML.
+// Clears all fields of the calculator and resets the effective tax rate, terminal growth rate, equity capital
+// opportunity cost, and annual augmented payout ratio fields to their default values (control panel values). The
+// model's stock price is set to 'Not Calculated'.  transfer_html_to_model() must be called afterwards to push updates
+// to HTML.
 function clear_calc()
 {
     // 1. Reset the control panel's values to their default states.
     calc_ctrl_panel_vals = 
     [[              'Effective Tax Rate', 19.00],
      [            'Terminal Growth Rate',  5.00],
-     [ 'Equity Capital Opportunity Cost', 10.00]];
+     [ 'Equity Capital Opportunity Cost', 10.00],
+     [   'Annual Augmented Payout Ratio',  0.00]];
 
     // 2. Reset the calculator table's values to their default states.
     calc_table_vals = 
@@ -138,6 +141,7 @@ function recompute_model()
     let eff_tax_rate        = calc_ctrl_panel_vals[0][1];
     let term_growth_rate    = calc_ctrl_panel_vals[1][1];
     let equity_ror          = calc_ctrl_panel_vals[2][1];
+    let aug_payout_ratio    = calc_ctrl_panel_vals[3][1];
     let num_shares          = calc_table_vals[9][1];
 
     let discounted_residuals_ttl = 0, terminal_residual = 0;
@@ -161,7 +165,15 @@ function recompute_model()
     // 3. Compute book value for each year.
     for(let i = 2; i < row_len; i++)
     {
-        new_val = net_inc_row[i - 1] + book_val_row[i - 1];
+        // A dividend or buyback (part of annual augmented payout ratio) will only occur if net income is positive. If
+        // net income is positive, reduce the amount of net income added to current year's book value to get next
+        // year's  book value.
+        if(net_inc_row[i - 1]  > 0)
+            new_val = net_inc_row[i - 1] * (1 - aug_payout_ratio/100) + book_val_row[i - 1];
+        // If net income is negative, no dividend or buyback occurs and augmented payout ratio is not factored in.
+        else
+            new_val =  net_inc_row[i - 1] + book_val_row[i - 1]
+
         book_val_row[i] = bankers_round(new_val, 2);
     }
 
@@ -331,9 +343,9 @@ function transfer_html_to_model()
     // 2. Transfers input data from the HTML fieldset with id "id_form__calculator_control_panel", the calculator
     // control panel, to internal storage.
     element_ids = ['id_input__effective_tax_rate', 'id_input__terminal_growth_rate',
-                   'id_input__equity_capital_opportunity_cost'];
+                   'id_input__equity_capital_opportunity_cost', 'id_input__annual_augmented_payout_ratio'];
 
-    for(let i = 0; i < 3; i++)
+    for(let i = 0; i < 4; i++)
     {
         float_value = get_float_from_str(document.getElementById(element_ids[i]).value);
         if(isNaN(float_value))
@@ -360,7 +372,7 @@ function transfer_model_to_html()
         for(let j = 0; j < cur_row.length; j++)
         {
             let cur_cell = cur_row[j];
-            
+
             // Retrieve all values from the model's calculator table as strings. Some entries such as those in the first 
             // row or leftmost column are already strings. Others, such as elements in the table, are numbers.
             // All values are initially converted to strings to make the code easier to understand.
@@ -400,9 +412,9 @@ function transfer_model_to_html()
     // 2. Transfer values from calc_ctrl_panel_vals, the model's representation of the calculator control panel, to
     // HTML.
     element_ids = ['id_input__effective_tax_rate', 'id_input__terminal_growth_rate',
-                   'id_input__equity_capital_opportunity_cost'];
+                   'id_input__equity_capital_opportunity_cost', 'id_input__annual_augmented_payout_ratio'];
 
-    for(let i = 0; i < 3; i++)
+    for(let i = 0; i < 4; i++)
     {
         // orig_value will always be a number. toLocaleString() will later convert it to a string.
         orig_value = calc_ctrl_panel_vals[i][1];
@@ -466,7 +478,7 @@ function verify_model()
     }
 
     // Also test the values in the calculator control panel to see if they are over 9,999,999.99
-    for(let i = 0; i < 3; i++)
+    for(let i = 0; i < 4; i++)
     {
         if(calc_ctrl_panel_vals[0][i] > 9999999.99)
             excd_limit_flag = true;

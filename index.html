@@ -395,6 +395,12 @@
                         <input autocomplete = "off" id = "id_input__equity_capital_opportunity_cost" type = "text"
                                value = "10">
 
+                        <label for = "id_input__annual_augmented_payout_ratio">
+                            Annual Augmented Payout Ratio:
+                        </label>
+                        <input autocomplete = "off" id = "id_input__annual_augmented_payout_ratio" type = "text"
+                               value = "0">
+
                         <p>
                             Predicted Stock Price:
                         </p>
@@ -474,6 +480,10 @@
                         <br>
                         <strong>Terminal Growth Rate</strong> - Terminal growth rate of business at Year 10. 5% is the
                         default value. Estimated by looking at Nominal GDP growth rates in 2023.
+                        <br>
+                        <strong>Annual Augmented Payout Ratio</strong> - Percentage of annual net income
+                        (if positive) that goes to buybacks or dividends. 0% is the default value. It is lower for
+                        new/tech companies.
                     </p>
 
                     <a href = "./Residual Income Valuation.xlsx" id = "id_anchor__excel_download">

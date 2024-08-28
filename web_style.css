@@ -342,26 +342,39 @@ object {}
     margin-left: 15px;
 }
 
-/* <p> with text "Predicted Stock Price:" */
+/* <label> for "id_input__annual_augmented_payout_ratio" */
 #id_form__calculator_control_panel :nth-child(7){
     grid-column: 1 / span 1;
     grid-row: 4;
+}
+
+/* <input> "id_input__annual_augmented_payout_ratio" */
+#id_form__calculator_control_panel :nth-child(8){
+    grid-column: 2 / span 1;
+    grid-row: 4;
+    margin-left: 15px;
+}
+
+/* <p> with text "Predicted Stock Price:" */
+#id_form__calculator_control_panel :nth-child(9){
+    grid-column: 1 / span 1;
+    grid-row: 5;
     margin-top: 10px;
 }
 
 /* <output> with predicted stock price text */
-#id_form__calculator_control_panel :nth-child(8){
+#id_form__calculator_control_panel :nth-child(10){
     grid-column: 2 / span 1;
-    grid-row: 4;
+    grid-row: 5;
     margin-left: 16px;
     margin-top: 11px;
     text-align: left;
 }
 
 /* <div> "id_fieldset__calculator_control_panel_buttons */
-#id_form__calculator_control_panel :nth-child(9){
+#id_form__calculator_control_panel :nth-child(11){
     grid-column: 3 / span 1;
-    grid-row: 4;
+    grid-row: 5;
     margin-left: 480px;
     margin-top: 10px;
 }
