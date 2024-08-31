@@ -252,9 +252,10 @@ function resize_calc_table()
 
 
 // This function is called when the Calculate or Clear button is pressed. It is also called by verify_model() if there
-// an input our output value exceeds the limit of 9,999,999.99. It allows the stock price to be updated when the model
-// is transferred to HTML. These two buttons call the transfer_model_to_html() function. On the next transfer, the flag
-// will be set to false. Either button must be pressed again to allow further stock price transfers to HTML.
+// an input our output value is larger than 9,999,999.99 or smaller than -9,999,999.99. It allows the stock price to be
+// updated when the model is transferred to HTML. These two buttons call the transfer_model_to_html() function. On the
+// next transfer, the flag will be set to false. Either button must be pressed again to allow further stock price
+// transfers to HTML.
 function set_stock_price_upd_flag_true()
 {
     upd_stock_price_flag = true;
@@ -427,7 +428,7 @@ function transfer_model_to_html()
     // 3. Transfer the predicted stock price to the stock price <output> element in HTML.
     orig_value = stock_price.toString();
 
-    // The stock price can either be a number, the string 'Not Calculated', or the string 
+    // The stock price can either be a number, the string 'Not Calculated', or the string
     // 'Input or Output Field Exceeded 9,999,999.99'. If it is a number, it must be formatted.
     if(orig_value === 'Not Calculated' || orig_value === 'Input or Output Field Exceeded 9,999,999.99')
     {
@@ -436,7 +437,7 @@ function transfer_model_to_html()
     else
     {
         // Ensures that numerical values are outputted with two decimal values. This command will round the stock price
-        // to the nearest hundredth. For example, 0.005 rounds to 0.01. However, rounding is not expected to occur 
+        // to the nearest hundredth. For example, 0.005 rounds to 0.01. However, rounding is not expected to occur
         // because the stock price is already rounded in the recompute_model() function. If the stock price is
         // represented as a number such as 3, the function will transfer the string "3.00". This is done by specifying
         // the minimum number of fraction digits. The number representation of 3.00 in JavaScript is 3. This
@@ -444,7 +445,7 @@ function transfer_model_to_html()
         trunc_value = parseFloat(orig_value).toLocaleString("en", {minimumFractionDigits: 2});
         final_value = format_str_numerical(trunc_value, 'number');
     }
-    
+
     // Only transfer the price to HTML after the Calculate button or Clear button has been pressed. upd_stock_price_flag
     // is the variable that isset to true when this has occurred. Later, set the variable to false so the price will
     // onlytransfer when calculate has been pressed.
@@ -456,9 +457,10 @@ function transfer_model_to_html()
 }
 
 
-// This function should be called after recompute_model(). If any component of the model has a value over 9,999,999.99,
-// reset  the model and set the stock price to the string 'Input or Output Field Exceeded 9,999,999.99'. The program is
-// designed to output the stock_price variable regardless if it's a string or a number.
+// This function should be called after recompute_model(). If any component of the model has a value over greater than
+// 9,999,999.99 or less than -9,999,999.99, reset the model and set the stock price to the string
+// 'Input or Output Field Exceeded 9,999,999.99'. The program is designed to output the stock_price variable regardless
+// if it's a string or a number.
 function verify_model()
 {
     let row_len = calc_table_vals[0].length, col_len = calc_table_vals.length;
@@ -472,15 +474,15 @@ function verify_model()
     {
         for(let j = 1; j < row_len; j++)
         {
-            if(calc_table_vals[i][j] > 9999999.99)
+            if(calc_table_vals[i][j] > 9999999.99 || calc_table_vals[i][j] < -9999999.99)
                 excd_limit_flag = true;
         }
     }
 
-    // Also test the values in the calculator control panel to see if they are over 9,999,999.99
+    // Also test the values in the calculator control panel to see if they are over 9,999,999.99 or below -9,999,999.99.
     for(let i = 0; i < 4; i++)
     {
-        if(calc_ctrl_panel_vals[0][i] > 9999999.99)
+        if(calc_ctrl_panel_vals[0][i] > 9999999.99 || calc_table_vals[0][i] < -9999999.99)
             excd_limit_flag = true;
     }
 

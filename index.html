@@ -6,15 +6,16 @@
         <title>
             ValueVille | Stock Price Calculator
         </title>
-
         <link rel = "preconnect" href = "https://fonts.googleapis.com">
         <link rel = "preconnect" href = "https://fonts.gstatic.com" crossorigin>
         <link href = "https://fonts.googleapis.com/css2?family=Noto+Sans:wght@300;400&display=swap" rel = "stylesheet">
+
         <link rel = "stylesheet" href = "./reset.css">
         <link rel = "stylesheet" href = "./web_style.css">
         <link rel = "icon" href = "./favicon.png">
 
         <script src = "./stock_calc.js"> </script> 
+
     </head>
 
     <body onload = "init_calc_page();">
@@ -377,7 +378,7 @@
                     </table>
                     <input autocomplete = "off" id = "id_input__slider" min = "1" max = "10" step = "1" 
                            onchange = "resize_calc_table();" type = "range" value = "10">
-                           
+
                     <form id = "id_form__calculator_control_panel">
                         <label for = "id_input__effective_tax_rate">
                             Effective Tax Rate:
@@ -420,7 +421,7 @@
                             </button>
                             <button class = "cl_style__button_black" onclick = "clear_calc();
                                                                                 set_stock_price_upd_flag_true();
-                                                                                transfer_model_to_html();" 
+                                                                                transfer_model_to_html();"
                                     type = "button">
                                 Clear
                             </button>

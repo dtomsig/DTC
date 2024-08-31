@@ -303,6 +303,12 @@ object {}
     text-align: right;
 }
 
+/* Setting the font-size in the "id_form__calculator_control_panel" rule will not change the font size of input 
+   fields in the calculator control panel. Instead, the rule below must be used. */
+#id_form__calculator_control_panel input{
+    font-size: 13px;
+}
+
 /* <label> for "id_input__effective_tax_rate" */ 
 #id_form__calculator_control_panel :nth-child(1){
     grid-column: 1 / span 1;
@@ -402,7 +408,7 @@ object {}
     display: block;
     height: 8px;
     margin-bottom: 20px;
-    margin-left: 1000px;
+    margin-left: 1022px;
    -webkit-appearance: none;
 }
 
@@ -467,11 +473,12 @@ object {}
 }
 
 /* The rule below appears to work if "td" is removed. The <td> elements will be 75 pixels wide, even if the size is not
-   specified . This is possibly due to a CSS default. However, I included <td> in the selector because I believe it's
+   specified . This is possibly due to a CSS default. However, I included <td> in the rule because I believe it's
    most correct. I don't have any CSS code to prevent overflowing of the <td> elements. The JavaScript program,
    stock_calc.js, prevents fields from overflowing by not displaying values over 9,999,999.99. */
 #id_table__calculator_table input, td {
-    width: 75px;
+    width: 77px;
+    font-size: 13px;
 }
 
 /* Applies styling to the cells in the leftmost column. */
