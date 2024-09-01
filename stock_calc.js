@@ -479,7 +479,7 @@ function verify_model()
         }
     }
 
-    // Also test the values in the calculator control panel to see if they are over 9,999,999.99 or below -9,999,999.99.
+    // Also test the values in the calculator control panel to see if they are over 9,999,999.99
     for(let i = 0; i < 4; i++)
     {
         if(calc_ctrl_panel_vals[0][i] > 9999999.99 || calc_table_vals[0][i] < -9999999.99)
