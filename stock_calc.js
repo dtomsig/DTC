@@ -111,19 +111,6 @@ function get_float_from_str(str)
 }
 
 
-// Initializes the HTML calculator's DOM elements. This function is called when the onload event occurs for the <body>
-// element.
-function init_calc_page()
-{
-    // This will set the columns to hidden based on the value of the number of years slider (id = id_input__slider)
-    // when the document is loaded. The slider's default value is 7. The hidden attribute is already applied so that
-    // seven years (Year 1 - Year 6) will appear on start up. This is redundant but is called to ensure that the inital
-    // number of years matches the value in the number of years slider.
-    resize_calc_table();
-    transfer_model_to_html();
-}
-
-
 // Recomputes revenue growth, net income, book value, and stock price and stores values in internal storage. Rounds any
 // computed values to two decimal points.
 function recompute_model()
