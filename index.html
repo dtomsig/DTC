@@ -6,16 +6,12 @@
         <title>
             ValueVille | Stock Price Calculator
         </title>
-        <link rel = "preconnect" href = "https://fonts.googleapis.com">
-        <link rel = "preconnect" href = "https://fonts.gstatic.com" crossorigin>
-        <link href = "https://fonts.googleapis.com/css2?family=Noto+Sans:wght@300;400&display=swap" rel = "stylesheet">
 
         <link rel = "stylesheet" href = "./reset.css">
         <link rel = "stylesheet" href = "./web_style.css">
         <link rel = "icon" href = "./favicon.png">
 
         <script src = "./stock_calc.js"> </script> 
-
     </head>
 
     <body>
@@ -32,11 +28,11 @@
 
         <main id = "id_main__calculator_page">
             <section id = "id_section__calculators">
-                <h1 class = "cl_style__heading_w_1200">
+                <h1 class = "cl_style__heading_w_650">
                     Residual Income Stock Price Calculator
                 </h1>
 
-                <article class = "cl_style__content_pane_general_w_1200" id = "id_article__calculator"
+                <article class = "cl_style__content_pane_general_w_1250" id = "id_article__calculator"
                          onfocusin = "remove_empty_char_on_focus(event);"
                          onfocusout = "transfer_html_to_model(); recompute_model(); verify_model(); 
                                        transfer_model_to_html();"
@@ -408,6 +404,7 @@
                             </td>
                         </tr>
                     </table>
+
                     <input autocomplete = "off" id = "id_input__slider" min = "1" max = "10" step = "1" 
                            onchange = "resize_calc_table();" type = "range" value = "10">
 
@@ -451,6 +448,7 @@
                                     type = "button">
                                 Calculate
                             </button>
+
                             <button class = "cl_style__button_black" onclick = "clear_calc();
                                                                                 set_stock_price_upd_flag_true();
                                                                                 transfer_model_to_html();"
@@ -461,7 +459,7 @@
                     </form>
                 </article>
 
-                <article class = "cl_style__content_pane_general_w_1200">
+                <article class = "cl_style__content_pane_general_w_1250">
                     <h2> Excel Version </h2>
 
                     <p>

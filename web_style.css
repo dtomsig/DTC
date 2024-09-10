@@ -9,18 +9,20 @@
   --custom-embellishment-name:;
 }
 
+html {
+}
+
 /*  ----- Viewport ----- elements inherited by all remaining elements ----- */
 body {       /* Can alternatively define in html {} or :root {} */
     background-color: rgb(25, 25, 112);
     color: rgb(223, 205, 250);
-    font-family: 'Noto Sans', sans-serif;
+    font-family: Arial, sans-serif;
+    font-weight: 400;
 }
 
 /* ----- Anchors ----- Text links */
 a {
-    font-family: 'Noto Sans', sans-serif;
-    margin: 0px;
-    padding: 0px;
+    font-family: Arial, sans-serif;
 }
 
 a:link {
@@ -49,7 +51,7 @@ nav a {
 }
 
 nav a img {
-    height: 47px;
+    height: 49px;
     width: 218px;
 }
 
@@ -148,13 +150,13 @@ tr {}
   
 th {
     font-size: 13px;
-    padding: 1px;
+    padding: 0px;
     text-align: center;
 }
 
 td {
     font-size: 13px;
-    padding: 1px;
+    padding: 0px;
     text-align: center;
 }
 
@@ -171,23 +173,26 @@ fieldset {}
   
 label {
     font-size: 15px;
-    line-height: 17px;
 }
 
-  button {}
+button {}
   
-  input {
+input {
     background-color: rgb(15, 15, 15);
     border: none;
     color: rgb(223, 205, 250);
-    font-family: 'Noto Sans', sans-serif;
+    font-family: Arial, sans-serif;
     font-size: 13px;
     text-align: center;
-  }
-  
+}
+
+input[type=text]:focus {
+    outline: 1px green solid;
+}
+
+
   output {
     font-size: 15px;
-    line-height: 17px;
   }
   meter {}
   progress {}
@@ -238,7 +243,7 @@ object {}
     border: solid 1px black;
     color: rgb(223, 205, 250);
     font-size: 14px;
-    font-family: 'Noto Sans', sans-serif;
+    font-family: Arial, sans-serif;
     /* Top/Bottom Left/Right */
     padding: 2px 6px;
 }
@@ -247,25 +252,26 @@ object {}
     border-color: rgb(223, 205, 250);
 }
 
-.cl_style__content_pane_general_w_1200 {
+.cl_style__content_pane_general_w_1250 {
     background-color: rgb(33, 33, 33);
     border: solid 2px black;
     border-radius: 10px;
-    overflow: auto;
+    overflow-y: auto;
     padding: 13px;
-    white-space: nowrap
+    white-space: nowrap;
+    width: 1250px;
 }
 
-.cl_style__content_pane_general_w_1200 h2 {
+.cl_style__content_pane_general_w_1250 h2 {
     margin-bottom: 30px;
 }
 
-.cl_style__heading_w_1200 {
+.cl_style__heading_w_650 {
     background-color: rgb(33, 33, 33);
     border: solid 2px black;
-    max-width: 650px;
     padding: 8px;
     text-align: center;
+    width: 650px;
 }
 
 /* A rule for the general <a> element cannot be done because the rule would apply to both image anchors and text 
@@ -297,95 +303,98 @@ object {}
     font-weight: bold;
     float: left;
     grid-template-columns: auto 70px auto;
+    line-height: 21px;
     margin-bottom: 30px;
     margin-left: 30px;
-    row-gap: 1px;
     text-align: right;
 }
 
-/* Setting the font-size in the "id_form__calculator_control_panel" rule will not change the font size of input 
-   fields in the calculator control panel. Instead, the rule below must be used. */
-#id_form__calculator_control_panel input{
-    font-size: 13px;
+#id_form__calculator_control_panel input {
+    line-height: 20px;
+    padding: 0px;
 }
 
 /* <label> for "id_input__effective_tax_rate" */ 
-#id_form__calculator_control_panel :nth-child(1){
+#id_form__calculator_control_panel :nth-child(1) {
     grid-column: 1 / span 1;
     grid-row: 1;
 }
 
 /* <input> "id_input__effective_tax_rate" */
-#id_form__calculator_control_panel :nth-child(2){
+#id_form__calculator_control_panel :nth-child(2) {
     grid-column: 2 / span 1;
     grid-row: 1;
     margin-left: 15px;
 }
 
 /* <label> for "id_input__terminal_growth_rate" */
-#id_form__calculator_control_panel :nth-child(3){
+#id_form__calculator_control_panel :nth-child(3) {
     grid-column: 1 / span 1;
     grid-row: 2;
 }
 
 /* <input> "id_input__terminal_growth_rate" */
-#id_form__calculator_control_panel :nth-child(4){
+#id_form__calculator_control_panel :nth-child(4) {
     grid-column: 2 / span 1;
     grid-row: 2;
     margin-left: 15px;
 }
 
 /* <label> for "id_input__equity_capital_opportunity_cost" */
-#id_form__calculator_control_panel :nth-child(5){
+#id_form__calculator_control_panel :nth-child(5) {
     grid-column: 1 / span 1;
     grid-row: 3;
 }
 
 /* <input> "id_input__equity_capital_opportunity_cost" */
-#id_form__calculator_control_panel :nth-child(6){
+#id_form__calculator_control_panel :nth-child(6) {
     grid-column: 2 / span 1;
     grid-row: 3;
     margin-left: 15px;
 }
 
 /* <label> for "id_input__annual_augmented_payout_ratio" */
-#id_form__calculator_control_panel :nth-child(7){
+#id_form__calculator_control_panel :nth-child(7) {
     grid-column: 1 / span 1;
     grid-row: 4;
+    margin-bottom: 10px;
 }
 
 /* <input> "id_input__annual_augmented_payout_ratio" */
-#id_form__calculator_control_panel :nth-child(8){
+#id_form__calculator_control_panel :nth-child(8) {
     grid-column: 2 / span 1;
     grid-row: 4;
     margin-left: 15px;
+    margin-bottom:10px;
 }
 
-/* <p> with text "Predicted Stock Price:" */
-#id_form__calculator_control_panel :nth-child(9){
+/* <p> with text "Predicted Stock Price:" 
+   The line-height attribute does not appear to be necessary. However, I set it to 21 to match other cells in the 
+   control panel grid. */
+#id_form__calculator_control_panel :nth-child(9) {
     grid-column: 1 / span 1;
     grid-row: 5;
-    margin-top: 10px;
+    line-height: 21px;
 }
 
 /* <output> with predicted stock price text */
-#id_form__calculator_control_panel :nth-child(10){
+#id_form__calculator_control_panel :nth-child(10) {
     grid-column: 2 / span 1;
     grid-row: 5;
-    margin-left: 16px;
-    margin-top: 11px;
+    margin-left: 17px;
     text-align: left;
+    width: 200px;
 }
 
-/* <div> "id_fieldset__calculator_control_panel_buttons */
-#id_form__calculator_control_panel :nth-child(11){
+/* <div> "id_fieldset__calculator_control_panel_buttons" */
+#id_form__calculator_control_panel :nth-child(11) {
     grid-column: 3 / span 1;
     grid-row: 5;
     margin-left: 480px;
     margin-top: 10px;
 }
 
-#id_form__calculator_control_panel output{
+#id_form__calculator_control_panel output {
     color: rgb(223, 205, 250);
     margin-right: 22px;
 }
@@ -393,7 +402,7 @@ object {}
 #id_form__calculator_control_panel_button_row {
 }
 
-#id_form__calculator_control_panel_button_row button:nth-of-type(1){
+#id_form__calculator_control_panel_button_row button:nth-of-type(1) {
     margin-right: 10px;
 }
 
@@ -410,20 +419,24 @@ object {}
     margin-bottom: 20px;
     margin-left: 1022px;
    -webkit-appearance: none;
+    width: 156px;
 }
 
-/* For Chrome/Safari browser. */
+/* For Chrome/Safari/Edge browsers. Width and height values are different than the Firefox version to make the slider
+   thumb appear the same size. The values were "eyeballed" to make thumb look the same across browsers.*/
 #id_input__slider::-webkit-slider-thumb {
     appearance: none;
     background: rgb(20, 20, 20);
     border: 1px solid rgb(77, 33, 199);
+    border-radius: 6px;
     cursor: pointer;
-    height: 28px;
+    height: 30px;
     -webkit-appearance: none;
-    width: 10px;
+    width: 12px;
 }
 
-/* For Firefox browser. */
+/* For Firefox browser. The width and height do not match the non-Firefox version. This is because the non-Firefox 
+   version had to be adjusted to look the same as the Firefox version.*/
 #id_input__slider::-moz-range-thumb {
     background: rgb(20, 20, 20);
     border: 1px solid rgb(77, 33, 199);
@@ -433,75 +446,72 @@ object {}
 }
 
 #id_section__calculators {
-    overflow: auto;
     padding-bottom: 100px;
     padding-left: 10%;
     padding-right: 10%;
 }
 
-#id_section__calculators > .cl_style__heading_w_1200 {
+#id_section__calculators > .cl_style__heading_w_650 {
     margin: auto;
     margin-bottom: 60px;
     margin-top: 30px;
 }
 
-#id_section__calculators > .cl_style__content_pane_general_w_1200 {
+#id_section__calculators > .cl_style__content_pane_general_w_1250 {
     margin: auto;
     margin-bottom: 100px;
 }
 
-/* white-space is set to normal. This is because the cl_style__content_pane_general_w_1200 sets the white-space to
-   nowrap and gets inherited by the table. The intended behavior is white-space set to normal. */
+/* white-space is set to normal. This is because the cl_style__content_pane_general_w_1250 sets the white-space to
+   nowrap and gets inherited by the table. The intended behavior is white-space set to normal. table-layout: fixed
+   is another important setting. It allows the spacing between cells to occur. See comment on the rule called 
+   "#id_table__calculator_table td" for more information. */
 #id_table__calculator_table {
     display: inline-block;
     margin-bottom: 40px;
     margin-left: 70px;
     margin-top: 20px;
-    min-width: 900px;
+    table-layout: fixed;
     white-space: normal;
 }
 
-/* Sets the border and width of the leftmost column. */
+/* Sets the border and minimum width of the leftmost column. */
 #id_table__calculator_table colgroup col:nth-of-type(1) {
-    border-right: 1px black solid;
-    min-width: 200px;
+    border-right: 2px black solid;
+    width: 200px;
 }
 
-/* Sets the width of the all other columns to the right of the leftmost one (not including leftmost column). */
-#id_table__calculator_table colgroup col:nth-of-type(2)  {
-    width: 75px;
+/* The <td> elements are set to just larger than <input> elements that it may contain. This creates an outside border
+   around <input> elements in the table. The table must have table-layout: fixed set on "id_table__calcualtor_table" for
+   this technique to work. This is the best way found to create spacing throughout the table. */
+#id_table__calculator_table td {
+    border: none;
+    height: 21px;
+    width: 78px;
 }
 
-/* The rule below appears to work if "td" is removed. The <td> elements will be 75 pixels wide, even if the size is not
-   specified . This is possibly due to a CSS default. However, I included <td> in the rule because I believe it's
-   most correct. I don't have any CSS code to prevent overflowing of the <td> elements. The JavaScript program,
-   stock_calc.js, prevents fields from overflowing by not displaying values over 9,999,999.99. */
-#id_table__calculator_table input, td {
+#id_table__calculator_table input {
+    line-height: 20px;
+    padding: 0px;
     width: 77px;
-    font-size: 13px;
 }
 
-/* Applies styling to the cells in the leftmost column. */
+/* Applies styling to the <th> elements in the first row to increase font size, display bottom border, and increase
+   first row height slightly. */
+#id_table__calculator_table th {
+    border-bottom: 2px black solid;
+    font-size: 15px;
+    height: 45px;
+    max-width: 78px;
+}
+
+/* Applies styling to the cells in the leftmost column. These properties cannot be set in the rule called
+  "#id_table__calculator_table colgroup col:nth-of-type(1)". */
 #id_table__calculator_table tr td:nth-of-type(1) {
     color: rgb(77, 33, 199);
     text-align: left;
     font-weight: bold;
     font-size: 15px;
-}
-
-/* Applies styling to the first row and will display the bottom border. */
-#id_table__calculator_table tr:nth-of-type(1) {
-    border-bottom: 2px solid black;
-}
-
-/* Applies styling to the <th> elements in the first row to increase font size. */
-#id_table__calculator_table tr:nth-of-type(1) th{
-    font-size: 15px;
-}
-
-/* Creates bottom padding in cells in the first row to move the cells' text slightly up. */
-#id_table__calculator_table tr:nth-of-type(1) *{
-    padding-bottom: 5px;
 }
 
 @keyframes App-logo {}
