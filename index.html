@@ -20,26 +20,26 @@
                 <a href = "">
                     <img src = "./logo.png">
                 </a>
-                <a href = "" class = "cl_style__navbar_main_text_href">
+                <a href = "" class = "cl_nav_main_text_href">
                     Stock
                 </a>
             </nav>
         </header>
 
-        <main id = "id_main__calculator_page">
-            <section id = "id_section__calculators">
-                <h1 class = "cl_style__heading_w_650">
+        <main id = "id_main_calculator_page">
+            <section id = "id_section_calculators">
+                <h1 class = "cl_heading_w_650">
                     Residual Income Stock Price Calculator
                 </h1>
 
-                <article class = "cl_style__content_pane_general_w_1250" id = "id_article__calculator"
+                <article class = "cl_div_content_pane_general_w_1250" id = "id_article_calculator"
                          onfocusin = "remove_empty_char_on_focus(event);"
-                         onfocusout = "transfer_html_to_model(); recompute_model(); verify_model(); 
+                         onfocusout = "transfer_html_to_model(); recompute_model(); verify_model();
                                        transfer_model_to_html();"
                          oninput = "verify_numerical_while_inputting(event);">
                     <h2> Calculator </h2>
 
-                    <table id = "id_table__calculator_table">
+                    <table id = "id_table_calculator_table">
                         <colgroup>
                             <col span = 1>
                             <col>
@@ -399,48 +399,48 @@
                                 Share Count (End of Year)
                             </td>
                             <td>
-                                <input autocomplete = "off" id = "id_input__num_shares_outstanding" type = "text"
+                                <input autocomplete = "off" id = "id_input_num_shares_outstanding" type = "text"
                                        value = "1.00">
                             </td>
                         </tr>
                     </table>
 
-                    <input autocomplete = "off" id = "id_input__slider" min = "1" max = "10" step = "1" 
+                    <input autocomplete = "off" id = "id_input_slider" min = "1" max = "10" step = "1" 
                            onchange = "resize_calc_table();" type = "range" value = "10">
 
-                    <form id = "id_form__calculator_control_panel">
-                        <label for = "id_input__effective_tax_rate">
+                    <form id = "id_form_calculator_control_panel">
+                        <label for = "id_input_effective_tax_rate">
                             Effective Tax Rate:
                         </label>
-                        <input autocomplete = "off" id = "id_input__effective_tax_rate" type = "text" value = "19%">
+                        <input autocomplete = "off" id = "id_input_effective_tax_rate" type = "text" value = "19%">
 
-                        <label for = "id_input__terminal_growth_rate">
+                        <label for = "id_input_terminal_growth_rate">
                             Terminal Growth Rate:
                         </label>
-                        <input autocomplete = "off" id = "id_input__terminal_growth_rate" type = "text" value = "5%">
+                        <input autocomplete = "off" id = "id_input_terminal_growth_rate" type = "text" value = "5%">
 
-                        <label for = "id_input__equity_capital_opportunity_cost">
+                        <label for = "id_input_equity_capital_opportunity_cost">
                             Equity Capital Opportunity Cost:
                         </label>
-                        <input autocomplete = "off" id = "id_input__equity_capital_opportunity_cost" type = "text"
+                        <input autocomplete = "off" id = "id_input_equity_capital_opportunity_cost" type = "text"
                                value = "10%">
 
-                        <label for = "id_input__annual_augmented_payout_ratio">
+                        <label for = "id_input_annual_augmented_payout_ratio">
                             Annual Augmented Payout Ratio:
                         </label>
-                        <input autocomplete = "off" id = "id_input__annual_augmented_payout_ratio" type = "text"
+                        <input autocomplete = "off" id = "id_input_annual_augmented_payout_ratio" type = "text"
                                value = "0%">
 
                         <p>
                             Predicted Stock Price:
                         </p>
 
-                        <output id = "id_output__predicted_stock_price">
+                        <output id = "id_output_predicted_stock_price">
                             Not Calculated
                         </output>
 
-                         <fieldset id = "id_fieldset__calculator_control_panel_buttons">
-                            <button class = "cl_style__button_black" onclick = "transfer_html_to_model();
+                         <fieldset id = "id_fieldset_calculator_control_panel_buttons">
+                            <button class = "cl_button_black" onclick = "transfer_html_to_model();
                                                                                 recompute_model();
                                                                                 verify_model();
                                                                                 set_stock_price_upd_flag_true();
@@ -449,7 +449,7 @@
                                 Calculate
                             </button>
 
-                            <button class = "cl_style__button_black" onclick = "clear_calc();
+                            <button class = "cl_button_black" onclick = "clear_calc();
                                                                                 set_stock_price_upd_flag_true();
                                                                                 transfer_model_to_html();"
                                     type = "button">
@@ -459,7 +459,7 @@
                     </form>
                 </article>
 
-                <article class = "cl_style__content_pane_general_w_1250">
+                <article class = "cl_div_content_pane_general_w_1250">
                     <h2> Excel Version </h2>
 
                     <p>
@@ -516,8 +516,8 @@
                         new/tech companies.
                     </p>
 
-                    <a href = "./Residual Income Valuation.xlsx" id = "id_anchor__excel_download">
-                        <img id = "id_img__excel_download" src = "./excel_download.png">
+                    <a href = "./Residual Income Valuation.xlsx" id = "id_anchor_excel_download">
+                        <img id = "id_img_excel_download" src = "./excel_download.png">
                         <p>
                             Download
                         </p>

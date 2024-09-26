@@ -238,7 +238,7 @@ object {}
 .gradient {}
 .shape {}
 
-.cl_style__button_black {
+.cl_button_black {
     background-color: rgb(15, 15, 15);
     border: solid 1px black;
     color: rgb(223, 205, 250);
@@ -248,11 +248,11 @@ object {}
     padding: 2px 6px;
 }
 
-.cl_style__button_black:active {
+.cl_button_black:active {
     border-color: rgb(223, 205, 250);
 }
 
-.cl_style__content_pane_general_w_1250 {
+.cl_div_content_pane_general_w_1250 {
     background-color: rgb(33, 33, 33);
     border: solid 2px black;
     border-radius: 10px;
@@ -262,11 +262,11 @@ object {}
     width: 1250px;
 }
 
-.cl_style__content_pane_general_w_1250 h2 {
+.cl_div_content_pane_general_w_1250 h2 {
     margin-bottom: 30px;
 }
 
-.cl_style__heading_w_650 {
+.cl_heading_w_650 {
     background-color: rgb(33, 33, 33);
     border: solid 2px black;
     padding: 8px;
@@ -274,21 +274,21 @@ object {}
     width: 650px;
 }
 
-/* A rule for the general <a> element cannot be done because the rule would apply to both image anchors and text 
+/* A rule for the general <a> element cannot be done because the rule would apply to both image anchors and text
    anchors. This rule is meant to apply to text anchors. */
-.cl_style__navbar_main_text_href {
+.cl_nav_main_text_href {
     color: white;
     margin-left: 20px;
     padding: 15px;
 }
 
-#id_anchor__excel_download img {
+#id_anchor_excel_download img {
     margin-left: 100px;
     margin-top: 80px;
     max-width: 60px;
 }
 
-#id_anchor__excel_download p {
+#id_anchor_excel_download p {
     color: rgb(77, 33, 199);
     font-weight: bold;
     margin-bottom: 30px;
@@ -296,7 +296,7 @@ object {}
     margin-top: 5px;
 }
 
-#id_form__calculator_control_panel {
+#id_form_calculator_control_panel {
     align-items: center;
     color: rgb(77, 33, 199);
     display: grid;
@@ -309,76 +309,76 @@ object {}
     text-align: right;
 }
 
-#id_form__calculator_control_panel input {
+#id_form_calculator_control_panel input {
     line-height: 20px;
     padding: 0px;
 }
 
-/* <label> for "id_input__effective_tax_rate" */ 
-#id_form__calculator_control_panel :nth-child(1) {
+/* <label> for "id_input_effective_tax_rate" */ 
+#id_form_calculator_control_panel :nth-child(1) {
     grid-column: 1 / span 1;
     grid-row: 1;
 }
 
-/* <input> "id_input__effective_tax_rate" */
-#id_form__calculator_control_panel :nth-child(2) {
+/* <input> "id_input_effective_tax_rate" */
+#id_form_calculator_control_panel :nth-child(2) {
     grid-column: 2 / span 1;
     grid-row: 1;
     margin-left: 15px;
 }
 
-/* <label> for "id_input__terminal_growth_rate" */
-#id_form__calculator_control_panel :nth-child(3) {
+/* <label> for "id_input_terminal_growth_rate" */
+#id_form_calculator_control_panel :nth-child(3) {
     grid-column: 1 / span 1;
     grid-row: 2;
 }
 
-/* <input> "id_input__terminal_growth_rate" */
-#id_form__calculator_control_panel :nth-child(4) {
+/* <input> "id_input_terminal_growth_rate" */
+#id_form_calculator_control_panel :nth-child(4) {
     grid-column: 2 / span 1;
     grid-row: 2;
     margin-left: 15px;
 }
 
-/* <label> for "id_input__equity_capital_opportunity_cost" */
-#id_form__calculator_control_panel :nth-child(5) {
+/* <label> for "id_input_equity_capital_opportunity_cost" */
+#id_form_calculator_control_panel :nth-child(5) {
     grid-column: 1 / span 1;
     grid-row: 3;
 }
 
-/* <input> "id_input__equity_capital_opportunity_cost" */
-#id_form__calculator_control_panel :nth-child(6) {
+/* <input> "id_input_equity_capital_opportunity_cost" */
+#id_form_calculator_control_panel :nth-child(6) {
     grid-column: 2 / span 1;
     grid-row: 3;
     margin-left: 15px;
 }
 
-/* <label> for "id_input__annual_augmented_payout_ratio" */
-#id_form__calculator_control_panel :nth-child(7) {
+/* <label> for "id_input_annual_augmented_payout_ratio" */
+#id_form_calculator_control_panel :nth-child(7) {
     grid-column: 1 / span 1;
     grid-row: 4;
     margin-bottom: 10px;
 }
 
-/* <input> "id_input__annual_augmented_payout_ratio" */
-#id_form__calculator_control_panel :nth-child(8) {
+/* <input> "id_input_annual_augmented_payout_ratio" */
+#id_form_calculator_control_panel :nth-child(8) {
     grid-column: 2 / span 1;
     grid-row: 4;
     margin-left: 15px;
     margin-bottom:10px;
 }
 
-/* <p> with text "Predicted Stock Price:" 
+/* <p> with text "Predicted Stock Price:"
    The line-height attribute does not appear to be necessary. However, I set it to 21 to match other cells in the 
    control panel grid. */
-#id_form__calculator_control_panel :nth-child(9) {
+#id_form_calculator_control_panel :nth-child(9) {
     grid-column: 1 / span 1;
     grid-row: 5;
     line-height: 21px;
 }
 
 /* <output> with predicted stock price text */
-#id_form__calculator_control_panel :nth-child(10) {
+#id_form_calculator_control_panel :nth-child(10) {
     grid-column: 2 / span 1;
     grid-row: 5;
     margin-left: 17px;
@@ -386,31 +386,31 @@ object {}
     width: 200px;
 }
 
-/* <div> "id_fieldset__calculator_control_panel_buttons" */
-#id_form__calculator_control_panel :nth-child(11) {
+/* <div> "id_fieldset_calculator_control_panel_buttons" */
+#id_form_calculator_control_panel :nth-child(11) {
     grid-column: 3 / span 1;
     grid-row: 5;
     margin-left: 480px;
     margin-top: 10px;
 }
 
-#id_form__calculator_control_panel output {
+#id_form_calculator_control_panel output {
     color: rgb(223, 205, 250);
     margin-right: 22px;
 }
 
-#id_form__calculator_control_panel_button_row {
+#id_form_calculator_control_panel_button_row {
 }
 
-#id_form__calculator_control_panel_button_row button:nth-of-type(1) {
+#id_form_calculator_control_panel_button_row button:nth-of-type(1) {
     margin-right: 10px;
 }
 
-#id_form__calculator_control_panel input {
+#id_form_calculator_control_panel input {
     width: 40px;
 }
 
-#id_input__slider {
+#id_input_slider {
     accent-color: rgb(77, 33, 199);
     background-color: rgb(33, 33, 33);
     border: 1px solid rgb(77, 33, 199);;
@@ -424,7 +424,7 @@ object {}
 
 /* For Chrome/Safari/Edge browsers. Width and height values are different than the Firefox version to make the slider
    thumb appear the same size. The values were "eyeballed" to make thumb look the same across browsers.*/
-#id_input__slider::-webkit-slider-thumb {
+#id_input_slider::-webkit-slider-thumb {
     appearance: none;
     background: rgb(20, 20, 20);
     border: 1px solid rgb(77, 33, 199);
@@ -437,7 +437,7 @@ object {}
 
 /* For Firefox browser. The width and height do not match the non-Firefox version. This is because the non-Firefox 
    version had to be adjusted to look the same as the Firefox version.*/
-#id_input__slider::-moz-range-thumb {
+#id_input_slider::-moz-range-thumb {
     background: rgb(20, 20, 20);
     border: 1px solid rgb(77, 33, 199);
     cursor: pointer;
@@ -445,28 +445,28 @@ object {}
     width: 10px;
 }
 
-#id_section__calculators {
+#id_section_calculators {
     padding-bottom: 100px;
     padding-left: 10%;
     padding-right: 10%;
 }
 
-#id_section__calculators > .cl_style__heading_w_650 {
+#id_section_calculators > .cl_heading_w_650 {
     margin: auto;
     margin-bottom: 60px;
     margin-top: 30px;
 }
 
-#id_section__calculators > .cl_style__content_pane_general_w_1250 {
+#id_section_calculators > .cl_div_content_pane_general_w_1250 {
     margin: auto;
     margin-bottom: 100px;
 }
 
-/* white-space is set to normal. This is because the cl_style__content_pane_general_w_1250 sets the white-space to
+/* white-space is set to normal. This is because the cl_div_content_pane_general_w_1250 sets the white-space to
    nowrap and gets inherited by the table. The intended behavior is white-space set to normal. table-layout: fixed
    is another important setting. It allows the spacing between cells to occur. See comment on the rule called 
-   "#id_table__calculator_table td" for more information. */
-#id_table__calculator_table {
+   "#id_table_calculator_table td" for more information. */
+#id_table_calculator_table {
     display: inline-block;
     margin-bottom: 40px;
     margin-left: 70px;
@@ -476,29 +476,29 @@ object {}
 }
 
 /* Sets the border and minimum width of the leftmost column. */
-#id_table__calculator_table colgroup col:nth-of-type(1) {
+#id_table_calculator_table colgroup col:nth-of-type(1) {
     border-right: 2px black solid;
     width: 200px;
 }
 
-/* The <td> elements are set to just larger than <input> elements that it may contain. This creates an outside border
-   around <input> elements in the table. The table must have table-layout: fixed set on "id_table__calcualtor_table" for
-   this technique to work. This is the best way found to create spacing throughout the table. */
-#id_table__calculator_table td {
-    border: none;
-    height: 21px;
-    width: 78px;
-}
-
-#id_table__calculator_table input {
+#id_table_calculator_table input {
     line-height: 20px;
     padding: 0px;
     width: 77px;
 }
 
+/* The <td> elements are set to just larger than <input> elements that it may contain. This creates an outside border
+   around <input> elements in the table. The table must have table-layout: fixed set on "id_table_calcualtor_table" for
+   this technique to work. This is the best way found to create spacing throughout the table. */
+#id_table_calculator_table td {
+    border: none;
+    height: 21px;
+    width: 78px;
+}
+
 /* Applies styling to the <th> elements in the first row to increase font size, display bottom border, and increase
    first row height slightly. */
-#id_table__calculator_table th {
+#id_table_calculator_table th {
     border-bottom: 2px black solid;
     font-size: 15px;
     height: 45px;
@@ -506,8 +506,8 @@ object {}
 }
 
 /* Applies styling to the cells in the leftmost column. These properties cannot be set in the rule called
-  "#id_table__calculator_table colgroup col:nth-of-type(1)". */
-#id_table__calculator_table tr td:nth-of-type(1) {
+  "#id_table_calculator_table colgroup col:nth-of-type(1)". */
+#id_table_calculator_table tr td:nth-of-type(1) {
     color: rgb(77, 33, 199);
     text-align: left;
     font-weight: bold;

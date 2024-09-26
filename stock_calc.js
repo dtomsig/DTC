@@ -212,14 +212,14 @@ function remove_empty_char_on_focus(event)
 function resize_calc_table()
 {
     // The number of projection years (Year 1 and beyond).
-    num_years = parseInt(document.getElementById('id_input__slider').value);
+    num_years = parseInt(document.getElementById('id_input_slider').value);
 
     // 'idx_hidden' is the beginning index for all rows where the table should not be displayed.
     // For row ['Year', 'Current Year', 'Year 1', 'Year 2', 'Year 3', 'Year 4', 'Year 5', 'Year 6', 'Year 7'], if
     // num_years is 1, then everything after 'Year 1' is be hidden. 'Year 1' would still be displayed'. Recall that
     // num_years is the number of years that is being modeled beyond the current year.
     let idx_hidden = 2 + num_years;
-    let rows = document.getElementById('id_table__calculator_table').rows;
+    let rows = document.getElementById('id_table_calculator_table').rows;
 
     // Iterate through the cells in each row. If the cell's index is greater than idx_hidden, do not display that cell.
     for(let i = 0; i < rows.length; i++)
@@ -292,12 +292,12 @@ function table_cell_store_text(cell, str)
 // <th> elements. This includes elements in both the calculator control panel and the calculator table.
 function transfer_html_to_model()
 {
-    let rows = document.getElementById('id_table__calculator_table').rows, element_ids = null;
+    let rows = document.getElementById('id_table_calculator_table').rows, element_ids = null;
     
-    // 1. Transfer input data from the HTML table with id "id_table__calculator_table" to the internal storage.
+    // 1. Transfer input data from the HTML table with id "id_table_calculator_table" to the internal storage.
     //
     // Start at i = 1 and j = 1 to start at data cells. Notice that columns with index = 0 and row with index = 0, do
-    // not contain any input fields. See "id_table__calculator_table" for the HTML definition of the calculator table.
+    // not contain any input fields. See "id_table_calculator_table" for the HTML definition of the calculator table.
     for(let i = 1; i < rows.length; i++)
     {
         let cur_row = rows[i].cells;
@@ -328,10 +328,10 @@ function transfer_html_to_model()
         }
     }
 
-    // 2. Transfers input data from the HTML fieldset with id "id_form__calculator_control_panel", the calculator
+    // 2. Transfers input data from the HTML fieldset with id "id_form_calculator_control_panel", the calculator
     // control panel, to internal storage.
-    element_ids = ['id_input__effective_tax_rate', 'id_input__terminal_growth_rate',
-                   'id_input__equity_capital_opportunity_cost', 'id_input__annual_augmented_payout_ratio'];
+    element_ids = ['id_input_effective_tax_rate', 'id_input_terminal_growth_rate',
+                   'id_input_equity_capital_opportunity_cost', 'id_input_annual_augmented_payout_ratio'];
 
     for(let i = 0; i < 4; i++)
     {
@@ -350,7 +350,7 @@ function transfer_html_to_model()
 function transfer_model_to_html()
 {
     let final_value = '', orig_value = '', trunc_value = '';
-    let rows = document.getElementById('id_table__calculator_table').rows, element_ids = null;
+    let rows = document.getElementById('id_table_calculator_table').rows, element_ids = null;
 
     // 1. Transfer values from calc_table_vals, the model's representation of the calculator table, to HTML.
     for(let i = 0; i < rows.length; i++)
@@ -399,8 +399,8 @@ function transfer_model_to_html()
 
     // 2. Transfer values from calc_ctrl_panel_vals, the model's representation of the calculator control panel, to
     // HTML.
-    element_ids = ['id_input__effective_tax_rate', 'id_input__terminal_growth_rate',
-                   'id_input__equity_capital_opportunity_cost', 'id_input__annual_augmented_payout_ratio'];
+    element_ids = ['id_input_effective_tax_rate', 'id_input_terminal_growth_rate',
+                   'id_input_equity_capital_opportunity_cost', 'id_input_annual_augmented_payout_ratio'];
 
     for(let i = 0; i < 4; i++)
     {
@@ -439,7 +439,7 @@ function transfer_model_to_html()
     if(upd_stock_price_flag === true)
     {
         upd_stock_price_flag = false;
-        document.getElementById('id_output__predicted_stock_price').value = final_value;
+        document.getElementById('id_output_predicted_stock_price').value = final_value;
     }
 }
 
