@@ -1,4 +1,4 @@
-let num_years;
+let num_years = 10;
 let stock_price = 'Not Calculated';
 let upd_stock_price_flag = false;
 
