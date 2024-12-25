@@ -1,3 +1,5 @@
+'use strict';
+
 let num_years = 10;
 let stock_price = 'Not Calculated';
 let upd_stock_price_flag = false;
@@ -335,7 +337,7 @@ function transfer_html_to_model()
 
     for(let i = 0; i < 4; i++)
     {
-        float_value = get_float_from_str(document.getElementById(element_ids[i]).value);
+        let float_value = get_float_from_str(document.getElementById(element_ids[i]).value);
         if(isNaN(float_value))
             float_value = 0.00;
 
