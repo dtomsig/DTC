@@ -42,7 +42,7 @@ function bankers_round(num, num_decs)
 
 // Clears all fields of the calculator and resets the effective tax rate, terminal growth rate, equity capital
 // opportunity cost, and annual augmented payout ratio fields to their default values (control panel values). The
-// model's stock price is set to 'Not Calculated'.  transfer_html_to_model() must be called afterwards to push updates
+// model's stock price is set to 'Not Calculated'. transfer_html_to_model() must be called afterwards to push updates
 // to HTML.
 function clear_calc()
 {
@@ -79,7 +79,7 @@ function clear_calc()
 // All strings should be input with a string with a numeric format such as '-1000.9', '2000', '0.39', etc. All other
 // input types result in undefined behavior.
 
-// The mode must be input as well. A mode of "percent" will add a percent sign to the string. A mode of "number" will
+// The mode must be input as well. A mode of 'percent' will add a percent sign to the string. A mode of 'number' will
 // not add a percent sign. If an incorrect mode is passed, the original string is returned.
 function format_str_numerical(str, mode)
 {
@@ -96,7 +96,7 @@ function format_str_numerical(str, mode)
         formatted_str += '.' + parts[1];
     if(mode == 'percent')
     {
-        if(str.charCodeAt(str.length - 1) != 37 && str != '-')     // Char code for '%'.
+        if(str.charCodeAt(str.length - 1) != 37 && str != '-')    // Char code for '%'.
             formatted_str = formatted_str + '%';
     }
 
@@ -261,9 +261,9 @@ function table_cell_retrieve(cell)
 
     // If there is no <input> child, the textContent of the <td> or <th> element must be be acquired. If the <td> or
     // <th> element has an <input> child, the value of the <input> child must be acquired, not the parent's textContent.
-    if(cell.childNodes.length > 1)                             // Has an <input> child, acquire <input> child's value.
+    if(cell.childNodes.length > 1)          // Has an <input> child, acquire <input> child's value.
         return cell.childNodes[1].value;
-    else                                                       // No <input> child, acquire textContent of parent.
+    else                                    // No <input> child, acquire textContent of parent.
         return cell.textContent;
 }
 
@@ -278,9 +278,9 @@ function table_cell_store_text(cell, str)
 
     // If there is no <input> child, the textContent of the <td> or <th> element must be  changed. If the <td> or <th>
     // element  has an <input> child, the value of the <input> child must be changed, not the parent's textContent.
-    if(cell.childNodes.length > 1)                             // Has an <input> child, modify <input> child's value.
+    if(cell.childNodes.length > 1)         // Has an <input> child, modify <input> child's value.
         cell.childNodes[1].value = str;
-    else                                                       // No <input> child, modify textContent of parent.
+    else                                   // No <input> child, modify textContent of parent.
         cell.textContent = str;
 }
 
@@ -380,8 +380,8 @@ function transfer_model_to_html()
 
                 // In transfer_html_to_model(), values are rounded to two decimal places. However, since JavaScript
                 // represents numbers such as 3.00 as number types with value 3, it is necessary to ensure that the
-                // minimum number of fraction digits is 2. Otherwise, the table would display the value "3" and not
-                // "3.00".
+                // minimum number of fraction digits is 2. Otherwise, the table would display the value '3' and not
+                // '3.00'.
                 let trunc_value = parseFloat(orig_value).toLocaleString("en", {minimumFractionDigits: 2});
 
                 // Rows with indices 2 and 3 (Revenue Growth % and Gross Margin %) must be displayed as percentages.
@@ -428,9 +428,9 @@ function transfer_model_to_html()
         // Ensures that numerical values are outputted with two decimal values. This command will round the stock price
         // to the nearest hundredth. For example, 0.005 rounds to 0.01. However, rounding is not expected to occur
         // because the stock price is already rounded in the recompute_model() function. If the stock price is
-        // represented as a number such as 3, the function will transfer the string "3.00". This is done by specifying
+        // represented as a number such as 3, the function will transfer the string '3.00'. This is done by specifying
         // the minimum number of fraction digits. The number representation of 3.00 in JavaScript is 3. This
-        // ensures that the HTML displays "3.00" and not "3".
+        // ensures that the HTML displays '3.00' and not '3'.
         trunc_value = parseFloat(orig_value).toLocaleString("en", {minimumFractionDigits: 2});
         final_value = format_str_numerical(trunc_value, 'number');
     }
@@ -453,7 +453,7 @@ function transfer_model_to_html()
 function verify_model()
 {
     let row_len = calc_table_vals[0].length, col_len = calc_table_vals.length;
-    let excd_limit_flag     = false;
+    let excd_limit_flag = false;
 
     if(stock_price > 9999999.99)
         excd_limit_flag = true;
@@ -468,7 +468,7 @@ function verify_model()
         }
     }
 
-    // Also test the values in the calculator control panel to see if they are over 9,999,999.99
+    // Also test the values in the calculator control panel to see if they are over 9,999,999.99.
     for(let i = 0; i < 4; i++)
     {
         if(calc_ctrl_panel_vals[0][i] > 9999999.99 || calc_table_vals[0][i] < -9999999.99)
