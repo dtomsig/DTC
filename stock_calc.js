@@ -83,7 +83,7 @@ function clear_calc()
 // not add a percent sign. If an incorrect mode is passed, the original string is returned.
 function format_str_numerical(str, mode)
 {
-    if(mode != 'percent' && mode != 'number')
+    if(mode !== 'percent' && mode !== 'number')
         return str;
 
     let formatted_str = '';
@@ -96,7 +96,7 @@ function format_str_numerical(str, mode)
         formatted_str += '.' + parts[1];
     if(mode == 'percent')
     {
-        if(str.charCodeAt(str.length - 1) != 37 && str != '-')    // Char code for '%'.
+        if(str.charCodeAt(str.length - 1) !== 37 && str !== '-')    // Char code for '%'.
             formatted_str = formatted_str + '%';
     }
 
@@ -199,7 +199,7 @@ function remove_empty_char_on_focus(event)
 {
     let targ_element = event.target;
 
-    if(targ_element.nodeName != 'INPUT')
+    if(targ_element.nodeName !== 'INPUT')
         return;
 
     let str_value = targ_element.value;
@@ -385,7 +385,7 @@ function transfer_model_to_html()
                 let trunc_value = parseFloat(orig_value).toLocaleString("en", {minimumFractionDigits: 2});
 
                 // Rows with indices 2 and 3 (Revenue Growth % and Gross Margin %) must be displayed as percentages.
-                if(i == 2 || i == 3)
+                if(i == 2 || i === 3)
                     final_value = format_str_numerical(trunc_value, 'percent');
                 else
                     final_value = format_str_numerical(trunc_value, 'number');
@@ -513,7 +513,7 @@ function verify_numerical_while_inputting(event)
             sanitized_value += orig_value[i];
 
         // Only include one '.' character in a number.
-        if(char_code == 46 && !has_period_char)     // Char code for '.'.
+        if(char_code === 46 && !has_period_char)     // Char code for '.'.
         {
             sanitized_value += orig_value[i];
             has_period_char = true;
@@ -526,7 +526,7 @@ function verify_numerical_while_inputting(event)
     final_value = parts[0].replace(/\B(?=(\d{3})+(?!\d))/g, ',');
     if(has_period_char)
         final_value = final_value + '.' + parts[1];
-    if(orig_value[0] == '-')
+    if(orig_value[0] === '-')
         final_value = '-' + final_value;
 
     // 3. Transfer the final string to the <input> element's value.
