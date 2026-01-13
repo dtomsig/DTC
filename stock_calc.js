@@ -4,7 +4,7 @@ let num_years = 10;
 let stock_price = 'Not Calculated';
 let upd_stock_price_flag = false;
 
-let calc_table_vals = 
+let calc_table_vals =
 [[                                '', 'Current Year', 'Year 1', 'Year 2', 'Year 3', 'Year 4', 'Year 5', 'Year 6',
                                       'Year 7', 'Year 8', 'Year 9', 'Year 10'],
  [                         'Revenue', 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00],
@@ -17,27 +17,11 @@ let calc_table_vals =
  [        'Book Value (End of Year)', 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00],
  [       'Share Count (End of Year)', 1.00]];
 
-let calc_ctrl_panel_vals = 
+let calc_ctrl_panel_vals =
 [[              'Effective Tax Rate', 19.00],
  [            'Terminal Growth Rate',  5.00],
  [ 'Equity Capital Opportunity Cost', 10.00],
  [   'Annual Augmented Payout Ratio',  0.00]];
-
-
-// Performs a banker's round of a number to a number of decimal points (num_decs). Banker's rounding is used because
-// it removes rounding bias as the calculator rounds values. JavaScript's default Math.Round() function rounds numbers
-// ending with 0.5 up. This creates bias. Banker's rounding rounds numbers ending with 0.5 to the nearest  even number.
-// Values are rounded when data is transferred from HTML to the calculator and when values are recomputed after data
-// entry in HTML.
-// Due to JavaScript's number data type, bankers_round(3.000, 2) returns the value 3. However, bankers_round(3.149, 2)
-// returns the value 3.15.
-function bankers_round(num, num_decs)
-{
-    let x = num * Math.pow(10, num_decs);
-    let r = Math.round(x);
-    let br = (((((x>0)?x:(-x))%1)===0.5)?(((0===(r%2)))?r:(r-1)):r);
-    return br / Math.pow(10, num_decs);
-}
 
 
 // Clears all fields of the calculator and resets the effective tax rate, terminal growth rate, equity capital
@@ -104,7 +88,7 @@ function format_str_numerical(str, mode)
 }
 
 
-// Returns a number for a given string. The function first filters out any non-numeric characters but will match the '.' 
+// Returns a number for a given string. The function first filters out any non-numeric characters but will match the '.'
 // and '-' characters. This string is then passed to attempted to be parsed by the parseFloat() function. Returns NaN if
 // the resulting string cannot be parsed as a number.
 function get_float_from_str(str)
@@ -113,8 +97,8 @@ function get_float_from_str(str)
 }
 
 
-// Recomputes revenue growth, net income, book value, and stock price and stores values in internal storage. Rounds any
-// computed values to two decimal points.
+// Recomputes revenue growth, net income, book value, and stock price and stores values in internal storage. Rounds the
+// computed stock price to two decimal points.
 function recompute_model()
 {
     let new_val             = 0.00;
@@ -140,7 +124,7 @@ function recompute_model()
     for(let i = 2; i < row_len; i++)
     {
         new_val = rev_row[i - 1] + Math.abs(rev_row[i-1]) * (rev_growth_row[i]/100);
-        rev_row[i] = bankers_round(new_val, 2);
+        rev_row[i] = new_val;
     }
 
     // 2. Compute net income for each year.
@@ -148,7 +132,7 @@ function recompute_model()
     {
         new_val = (1 - eff_tax_rate/100) *
                   (rev_row[i] * (gross_marg_row[i]/100) - op_exp_row[i] - int_exp_row[i] - oth_exp_row[i]);
-        net_inc_row[i] = bankers_round(new_val, 2)
+        net_inc_row[i] = new_val;
     }
 
     // 3. Compute book value for each year.
@@ -163,7 +147,7 @@ function recompute_model()
         else
             new_val =  net_inc_row[i - 1] + book_val_row[i - 1]
 
-        book_val_row[i] = bankers_round(new_val, 2);
+        book_val_row[i] = new_val;
     }
 
     // 4. Transfer the recomputed rows back to internal storage.
@@ -188,13 +172,13 @@ function recompute_model()
 
     // 6. The total discounted residual value is added to initial book value. (See Wikipedia article on
     // "Residual Income Valuation"). Store the stock price.
-    stock_price = bankers_round((book_val_row[1] + discounted_residuals_ttl)/num_shares, 2);
+    stock_price = round_dec((book_val_row[1] + discounted_residuals_ttl)/num_shares, 2);
 }
 
 
 // This function should be used with the onfocusin event. If an <input> element triggers this event, the <input>
 // element's value is changed if its current value is '-'. This would occur on a blank input cell in the calculator
-// table. 
+// table.
 function remove_empty_char_on_focus(event)
 {
     let targ_element = event.target;
@@ -209,8 +193,8 @@ function remove_empty_char_on_focus(event)
 }
 
 
-// Resizes the calculator table. This is done by taking the amount of years the user indicated they wanted to see
-// with the slider.
+// Resizes the calculator table. This is done by taking the amount of years the user indicated they wanted to see with
+// the slider.
 function resize_calc_table()
 {
     // The number of projection years (Year 1 and beyond).
@@ -240,8 +224,17 @@ function resize_calc_table()
 }
 
 
-// This function is called when the Calculate or Clear button is pressed. It is also called by verify_model() if there
-// an input our output value is larger than 9,999,999.99 or smaller than -9,999,999.99. It allows the stock price to be
+// Rounds a JavaScript number to a certain number of decimal places (half round up).
+function round_dec(num, decs)
+{
+    let x = Math.pow(10, decs);
+    // Number.EPSOLON adjusts for the inability to represent floating-point numbers exactly.
+    return Math.round((num + Number.EPSILON) * x) / x;
+}
+
+
+// This function is called when the Calculate or Clear button is pressed. It is also called by verify_model() if an
+// input our output value is larger than 9,999,999.99 or smaller than -9,999,999.99. It allows the stock price to be
 // updated when the model is transferred to HTML. These two buttons call the transfer_model_to_html() function. On the
 // next transfer, the flag will be set to false. Either button must be pressed again to allow further stock price
 // transfers to HTML.
@@ -276,8 +269,8 @@ function table_cell_store_text(cell, str)
     // element has an <input> child element at position 1. This is based on the structure of the HTML file associated
     // with this function.
 
-    // If there is no <input> child, the textContent of the <td> or <th> element must be  changed. If the <td> or <th>
-    // element  has an <input> child, the value of the <input> child must be changed, not the parent's textContent.
+    // If there is no <input> child, the textContent of the <td> or <th> element must be changed. If the <td> or <th>
+    // element has an <input> child, the value of the <input> child must be changed, not the parent's textContent.
     if(cell.childNodes.length > 1)         // Has an <input> child, modify <input> child's value.
         cell.childNodes[1].value = str;
     else                                   // No <input> child, modify textContent of parent.
@@ -296,7 +289,7 @@ function transfer_html_to_model()
 {
     let rows = document.getElementById('id_table_calculator_table').rows, element_ids = null;
     
-    // 1. Transfer input data from the HTML table with id "id_table_calculator_table" to the internal storage.
+    // 1. Transfer input data from the HTML table with id "id_table_calculator_table" to internal storage.
     //
     // Start at i = 1 and j = 1 to start at data cells. Notice that columns with index = 0 and row with index = 0, do
     // not contain any input fields. See "id_table_calculator_table" for the HTML definition of the calculator table.
@@ -323,10 +316,9 @@ function transfer_html_to_model()
             if(isNaN(float_value))
                 calc_table_vals[i][j] = 0.00;
             else
-                // Rounds to the nearest hundredth place using banker's rounding. If float_value = 3, the table will
-                // store a number type with its value set to 3. JavaScript represents the number 3.00 as a number type
-                // with value 3.
-                calc_table_vals[i][j] = bankers_round(float_value, 2);
+                // Rounds to the nearest hundredth place using. If float_value = 3, the table will store a number type
+                // with its value set to 3. JavaScript represents the number 3.00 as a number type with value 3.
+                calc_table_vals[i][j] = round_dec(float_value, 2);
         }
     }
 
@@ -341,7 +333,7 @@ function transfer_html_to_model()
         if(isNaN(float_value))
             float_value = 0.00;
 
-        calc_ctrl_panel_vals[i][1] = bankers_round(float_value, 0);
+        calc_ctrl_panel_vals[i][1] = round_dec(float_value, 0);
     }
 }
 
@@ -363,18 +355,18 @@ function transfer_model_to_html()
         {
             let cur_cell = cur_row[j];
 
-            // Retrieve all values from the model's calculator table as strings. Some entries such as those in the first 
+            // Retrieve all values from the model's calculator table as strings. Some entries such as those in the first
             // row or leftmost column are already strings. Others, such as elements in the table, are numbers.
             // All values are initially converted to strings to make the code easier to understand.
             orig_value = calc_table_vals[i][j].toString();
 
             if(orig_value === '0')
                 final_value = '-';
-            // Corresponds to values not in the leftmost column or uppermost row. They are JavaScript numbers in 
+            // Corresponds to values not in the leftmost column or uppermost row. They are JavaScript numbers in
             // internal storage and should be formatted as numbers.
             else if(i > 0 && j > 0)
             {
-                // Ensures that numerical values are outputted with 2 decimal places shown The maximum fraction digit
+                // Ensures that numerical values are outputted with 2 decimal places shown. The maximum fraction digit
                 // number does not need to be specified because table values are rounded to two decimal places on
                 // input by transfer_html_to_model().
 
@@ -382,7 +374,7 @@ function transfer_model_to_html()
                 // represents numbers such as 3.00 as number types with value 3, it is necessary to ensure that the
                 // minimum number of fraction digits is 2. Otherwise, the table would display the value '3' and not
                 // '3.00'.
-                let trunc_value = parseFloat(orig_value).toLocaleString("en", {minimumFractionDigits: 2});
+                let trunc_value = round_dec(parseFloat(orig_value), 2).toLocaleString("en", {minimumFractionDigits: 2});
 
                 // Rows with indices 2 and 3 (Revenue Growth % and Gross Margin %) must be displayed as percentages.
                 if(i == 2 || i === 3)
@@ -436,8 +428,8 @@ function transfer_model_to_html()
     }
 
     // Only transfer the price to HTML after the Calculate button or Clear button has been pressed. upd_stock_price_flag
-    // is the variable that isset to true when this has occurred. Later, set the variable to false so the price will
-    // onlytransfer when calculate has been pressed.
+    // is the variable that is set to true when this has occurred. Later, set the variable to false so the price will
+    // only transfer when calculate has been pressed.
     if(upd_stock_price_flag === true)
     {
         upd_stock_price_flag = false;
@@ -468,7 +460,7 @@ function verify_model()
         }
     }
 
-    // Also test the values in the calculator control panel to see if they are over 9,999,999.99.
+    // Also, test the values in the calculator control panel to see if they exceed 9,999,999.99.
     for(let i = 0; i < 4; i++)
     {
         if(calc_ctrl_panel_vals[0][i] > 9999999.99 || calc_table_vals[0][i] < -9999999.99)
