@@ -1,0 +1,529 @@
+*
+{
+    box-sizing: border-box;
+}
+
+body
+{
+    background-color: rgb(87, 87, 87);
+    color: rgb(223, 205, 250);
+    filter: hue-rotate(-22deg);
+    font-family: Arial, sans-serif;
+    font-size: 15px;
+    /* The default value of line-height is 1.0 because it is set in reset.css. */
+}
+
+p
+{
+    line-height: 1.3;
+}
+
+strong
+{
+    color: rgb(126, 120, 245);
+    font-weight: bold;
+}
+
+.button_black
+{
+    background-color: rgb(15, 15, 15);
+    border: 1px solid black;
+    color: rgb(223, 205, 250);
+    font-size: 14px;
+    font-family: Arial, sans-serif;
+    /* Top/Bottom Left/Right */
+    padding: 2px 6px;
+}
+
+.button_black:active
+{
+    border-color: rgb(223, 205, 250);
+}
+
+.heading_w_650
+{
+    background-color: rgb(45, 31, 107);
+    border: 1px solid black;
+    font-size: 30px;
+    font-weight: bold;
+    padding: 8px;
+    text-align: center;
+    width: 650px;
+}
+
+#anchor_excel_download
+{
+    text-decoration: none;
+}
+
+#anchor_excel_download img
+{
+    margin-bottom: 5px;
+    margin-left: 100px;
+    margin-top: 80px;
+    max-width: 60px;
+}
+
+#anchor_excel_download p
+{
+    color: rgb(126, 120, 245);
+    font-weight: bold;
+    margin-bottom: 30px;
+    margin-left: 94px;
+}
+
+#form_calculator_control_panel
+{
+    align-items: center;
+    color: rgb(126, 120, 245);
+    display: grid;
+    font-weight: bold;
+    grid-template-columns: auto 70px auto;
+    line-height: 21px;
+    margin-bottom: 30px;
+    margin-left: 30px;
+    text-align: right;
+    width: 500px;
+}
+
+#form_calculator_control_panel input
+{
+    background-color: rgb(15, 15, 15);
+    border: none;
+    color: rgb(223, 205, 250);
+    font-family: Arial, sans-serif;
+    font-size: 13px;
+    line-height: 20px;
+    padding: 0px;
+    text-align: center;
+}
+
+#form_calculator_control_panel input[type=text]:focus
+{
+    outline: 1px green solid;
+}
+
+#form_calculator_control_panel output
+{
+    line-height: 20px;
+    padding: 0px;
+}
+
+
+/* <label> for "input_effective_tax_rate" */ 
+#form_calculator_control_panel:nth-child(1)
+{
+    grid-column: 1 / span 1;
+    grid-row: 1;
+}
+
+/* <input> "input_effective_tax_rate" */
+#form_calculator_control_panel:nth-child(2)
+{
+    grid-column: 2 / span 1;
+    grid-row: 1;
+    margin-left: 15px;
+}
+
+/* <label> for "input_terminal_growth_rate" */
+#form_calculator_control_panel:nth-child(3)
+{
+    grid-column: 1 / span 1;
+    grid-row: 2;
+}
+
+/* <input> "input_terminal_growth_rate" */
+#form_calculator_control_panel:nth-child(4)
+{
+    grid-column: 2 / span 1;
+    grid-row: 2;
+    margin-left: 15px;
+}
+
+/* <label> for "input_equity_capital_opportunity_cost" */
+#form_calculator_control_panel:nth-child(5)
+{
+    grid-column: 1 / span 1;
+    grid-row: 3;
+}
+
+/* <input> "input_equity_capital_opportunity_cost" */
+#form_calculator_control_panel:nth-child(6)
+{
+    grid-column: 2 / span 1;
+    grid-row: 3;
+    margin-left: 15px;
+}
+
+/* <label> for "input_annual_augmented_payout_ratio" */
+#form_calculator_control_panel:nth-child(7)
+{
+    grid-column: 1 / span 1;
+    grid-row: 4;
+    margin-bottom: 10px;
+}
+
+/* <input> "input_annual_augmented_payout_ratio" */
+#form_calculator_control_panel:nth-child(8)
+{
+    grid-column: 2 / span 1;
+    grid-row: 4;
+    margin-left: 15px;
+    margin-bottom:10px;
+}
+
+/* <p> with text "Predicted Stock Price:".
+   The line-height attribute does not appear to be necessary. However, I set it to 21 to match other cells in the
+   control panel grid. */
+#form_calculator_control_panel:nth-child(9)
+{
+    grid-column: 1 / span 1;
+    grid-row: 5;
+    line-height: 21px;
+}
+
+/* <output> with the text containing predicted stock price. */
+#form_calculator_control_panel:nth-child(10)
+{
+    grid-column: 2 / span 1;
+    grid-row: 5;
+    margin-left: 17px;
+    text-align: left;
+    width: 200px;
+}
+
+/* <fieldset> containing the "Calculate" and "Clear" buttons. */
+#form_calculator_control_panel:nth-child(11)
+{
+    grid-column: 3 / span 1;
+    grid-row: 5;
+    margin-left: 480px;
+    margin-top: 10px;
+}
+
+#form_calculator_control_panel output
+{
+    color: rgb(223, 205, 250);
+    margin-right: 22px;
+}
+
+#form_calculator_control_panel_button_row button:nth-of-type(1)
+{
+    margin-right: 10px;
+}
+
+#form_calculator_control_panel input
+{
+    width: 40px;
+}
+
+#img_banner
+{
+    border: 1px solid black;
+    display: block;
+    margin: auto;
+    margin-top: 10px;
+    width: 1000px;
+}
+
+@media screen and (max-width: 600px)
+{
+    #img_banner
+    {
+        margin: 0px;
+        width: 100%;
+    }
+}
+
+#input_slider
+{
+    background-color: rgb(45, 31, 107);
+    border: 1px solid rgb(126, 120, 245);;
+    display: block;
+    height: 8px;
+    margin-bottom: 20px;
+    margin-left: 1022px;
+   -webkit-appearance: none;
+    width: 156px;
+}
+
+/* For Chrome/Safari/Edge browsers. Width and height values are different than the Firefox version to make the slider
+   thumb appear the same size. The values were "eyeballed" to make thumb look the same across browsers.*/
+#input_slider::-webkit-slider-thumb
+{
+    appearance: none;
+    background: rgb(20, 20, 20);
+    border: 1px solid rgb(126, 120, 245);
+    border-radius: 6px;
+    cursor: pointer;
+    height: 30px;
+    -webkit-appearance: none;
+    width: 12px;
+}
+
+/* For Firefox browser. The width and height do not match the non-Firefox version. This is because the non-Firefox
+   version had to be adjusted to look the same as the Firefox version.*/
+#input_slider::-moz-range-thumb
+{
+    background: rgb(20, 20, 20);
+    border: 1px solid rgb(126, 120, 245);
+    cursor: pointer;
+    height: 28px;
+    width: 10px;
+}
+
+/* <img> of an "under construction" gif. */
+#main_blog img
+{
+    display: block;
+    margin: auto;
+    margin-top: 160px;
+}
+
+#main_calc
+{
+    background-color: rgba(32, 22, 78, 1.0);
+    border: 1px solid black;
+    margin: auto;
+    margin-bottom: 75px;
+    margin-top: 50px;
+    width: 1400px;
+}
+
+#main_calc .heading_w_650
+{
+    margin: auto;
+    margin-top: 20px;
+}
+
+{
+    margin: auto;
+    margin-top: 40px;
+}
+
+#main_calc section
+{
+    background-color: rgb(45, 31, 107);
+    border: 1px solid black;
+    display: block;
+    margin:auto;
+    margin-top: 40px;
+    overflow-x: auto;
+    padding: 13px;
+    white-space: nowrap;
+    width: 1250px;
+}
+
+#main_calc section h2
+{
+    font-size: 24px;
+    font-weight: bold;
+    margin-bottom: 30px;
+    text-decoration: underline black;
+    text-underline-offset: 6px;
+    width: 150px;
+}
+
+#main_calc section:nth-of-type(2)
+{
+    margin-bottom: 60px;
+}
+
+#main_home
+{
+    background-color: rgb(10, 13, 25);
+    border: 1px solid black;
+    margin: auto;
+    margin-top: 100px;
+    padding-top: 10px;
+    padding-left: 10px;
+    padding-bottom: 30px;
+    width: 1000px;
+}
+
+#main_home p
+{
+    font-size: 19px;
+}
+
+@media (max-width: 600px)
+{
+    #main_home
+    {
+        margin-bottom: 0px;
+        margin-top: 20%;
+        width: 100%;
+    }
+}
+
+#main_gfx
+{
+    background-color: rgba(32, 22, 78, 1.0);
+    border: 1px solid black;
+    margin: auto;
+    margin-bottom: 75px;
+    margin-top: 50px;
+    padding-bottom: 2px;
+    width: 1150px;
+}
+
+#main_gfx .heading_w_650
+{
+    margin: auto;
+    margin-top: 20px;
+}
+
+#main_gfx canvas
+{
+    display: block;
+    margin: auto;
+    margin-top: 70px;
+}
+
+/* <p> with the FPS counter below the canvas. */
+#main_gfx p:nth-of-type(1)
+{
+    margin-left: 530px;
+    text-align: center;
+}
+
+/* <p> with the texture asset credit link. */
+#main_gfx p:nth-of-type(2)
+{
+    margin-left: 40px;
+    margin-top: 70px;
+}
+
+#nav_top
+{
+    background-color: rgb(32, 22, 78);
+    border-bottom: 1px solid black;
+    border-left: 1px solid black;
+    border-right: 1px solid black;
+    display: flex;
+    gap: 40px;
+    margin: auto;
+    width: 1000px;
+}
+
+#nav_top a
+{
+    align-items: center;
+    justify-content: space-evenly;
+    color: rgb(223, 205, 250);
+    font-size: 16px;
+    padding: 4px;
+    text-align: center;
+    text-decoration: none;
+}
+
+#nav_top a:hover
+{
+    color: rgb(126, 120, 245);
+}
+
+@media (max-width: 600px)
+{
+    #nav_top
+    {
+        width: 100%;
+    }
+
+    #nav_top a
+    {
+        border: 0px;
+        width: 49.7%; /* Cannot be 50% because of the 4px gap! */
+        vertical-align: top;
+    }
+
+    /* Targets the leftmost column. */
+    #nav_top a:nth-child(odd)
+    {
+        border-right: 1px solid black;
+    }
+
+    /* Targets every cell that is not in the bottom row (last 2 items). */
+    #nav_top a:not(:nth-last-child(-n+2)) 
+    {
+        border-bottom: 1px solid black;
+    
+
+}
+
+/* white-space is set to normal. This is because the "#main_calc section" selector sets the white-space to
+   nowrap and gets inherited by the table. The intended behavior is white-space set to normal. table-layout: fixed
+   is another important setting. It allows the spacing between cells to occur. See comment on the selector called
+   "#table_calculator td" for more information. */
+#table_calculator
+{
+    display: inline-block;
+    margin-bottom: 40px;
+    margin-left: 70px;
+    table-layout: fixed;
+    white-space: normal;
+}
+
+/* Sets the border and minimum width of the leftmost column. */
+#table_calculator colgroup col:nth-of-type(1)
+{
+    border-right: 2px black solid;
+    width: 200px;
+}
+
+#table_calculator input
+{
+    background-color: rgb(15, 15, 15);
+    border: none;
+    color: rgb(223, 205, 250);
+    font-family: Arial, sans-serif;
+    font-size: 13px;
+    text-align: center;
+    line-height: 20px;
+    padding: 0px;
+    width: 77px;
+}
+
+#table_calculator input[type=text]:focus
+{
+    outline: 1px green solid;
+}
+
+/* The <td> elements are set to just larger than <input> elements that it may contain. This creates an outside border
+   around <input> elements in the table. The table must have table-layout: fixed set on "#table_calculator" for this
+   technique to work. This is the best way found to create spacing throughout the table. */
+#table_calculator td
+{
+    border: none;
+    font-size: 13px;
+    height: 21px;
+    padding: 0px;
+    text-align: center;
+    width: 78px;
+}
+
+/* Applies styling to the <th> elements in the first row to increase font size, display bottom border, and increase
+   first row height slightly. */
+#table_calculator th
+{
+    border-bottom: 2px black solid;
+    font-size: 15px;
+    height: 45px;
+    max-width: 78px;
+    padding: 0px;
+    text-align: center;
+}
+
+#table_calculator tr *
+{
+    vertical-align: middle;
+}
+
+/* Applies styling to the cells in the leftmost column. These properties cannot be set in the selector called
+  "#table_calculator colgroup col:nth-of-type(1)". */
+#table_calculator tr td:nth-of-type(1)
+{
+    color: rgb(126, 120, 245);
+    text-align: left;
+    font-size: 15px;
+    font-weight: bold;
+}
