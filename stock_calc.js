@@ -463,7 +463,7 @@ function verify_model()
     // Also, test the values in the calculator control panel to see if they exceed 9,999,999.99.
     for(let i = 0; i < 4; i++)
     {
-        if(calc_ctrl_panel_vals[0][i] > 9999999.99 || calc_table_vals[0][i] < -9999999.99)
+        if(calc_ctrl_panel_vals[i][1] > 9999999.99 || calc_ctrl_panel_vals[i][1] < -9999999.99)
             excd_limit_flag = true;
     }
 
